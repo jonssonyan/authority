@@ -34,7 +34,6 @@ public class CategoryController {
      * @return
      */
     @PostMapping("/selectPage")
-    @RequiresRoles({"admin"})
     public Result<Object> selectPage(@RequestBody CategoryVO categoryVO) {
         return Result.success(categoryService.selectPage(categoryVO));
     }
@@ -47,7 +46,6 @@ public class CategoryController {
      * @return
      */
     @PostMapping("/removeById")
-    @RequiresRoles({"admin"})
     public Result<Object> removeById(@RequestBody CategoryVO categoryVO) {
         List<Category> categories = categoryService.selectCategorys(categoryVO.getId(), false);
         if (CollectionUtil.isNotEmpty(categories)) return Result.fail("该分类下含有子集,不可以删除");
@@ -68,7 +66,6 @@ public class CategoryController {
      * @return
      */
     @PostMapping("/saveOrUpdate")
-    @RequiresRoles({"admin"})
     public Result<Object> saveOrUpdate(@RequestBody Category category) {
         List<Long> longs = userService.selectUserIds(SecurityUtil.getCurrentUser().getId(), true);
         Integer count = categoryService.lambdaQuery()
