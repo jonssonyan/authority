@@ -8,4 +8,6 @@
 2. Mybatis-plus 3.2.0
 3. Shiro
 4. JWT
+# 界面
+![界面](http://adrai.github.io/flowchart.js/](https://img-blog.csdnimg.cn/20210224010314613.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3kxNTM0NDE0NDI1,size_16,color_FFFFFF,t_70)
 # 前端地址
