@@ -75,7 +75,7 @@ public class CategoryController {
                 .count();
         if (count > 0) return Result.fail("该分类名称已存在");
         category.setCreator(category.getId() == null ? SecurityUtil.getCurrentUser().getId() : null);
-        categoryService.lambdaUpdate().in(Category::getCreator, longs).update(category);
+        categoryService.saveOrUpdate(category);
         return Result.success();
     }
 
