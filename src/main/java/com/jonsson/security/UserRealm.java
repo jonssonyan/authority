@@ -64,10 +64,10 @@ public class UserRealm extends AuthorizingRealm {
         User user = userService.selectByUsername(usernamePasswordToken.getUsername());
         // 判断用户
         if (user == null) {
-            throw new AuthenticationException("用户不存在!");
+            throw new UnknownAccountException("用户不存在!");
         }
         if (user.getState() == 0) {
-            throw new AuthenticationException("账号已被禁用!");
+            throw new DisabledAccountException("账号已被禁用!");
         }
 
         // 认证成功之后设置角色关联的菜单
