@@ -46,6 +46,9 @@ public class UserController {
     @RequiresRoles({"admin"})
     @RequiresPermissions({"user:update"})
     public Result<Object> saveOrUpdate(@RequestBody User user) {
+        if ("admin".equals(user.getUsername())) {
+            return Result.fail("管理员不可以被禁用");
+        }
         Integer count = userService.lambdaQuery().eq(User::getUsername, user.getUsername())
                 .ne(user.getId() != null, User::getId, user.getId())
                 .count();
