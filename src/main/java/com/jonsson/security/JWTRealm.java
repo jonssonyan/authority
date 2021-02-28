@@ -1,5 +1,6 @@
 package com.jonsson.security;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.jonsson.entity.Permission;
 import com.jonsson.entity.Role;
@@ -50,6 +51,9 @@ public class JWTRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         // 设置角色
         List<Role> roles = roleService.selectRoles(SecurityUtil.getCurrentUser().getRoleId(), true);
+        if (CollectionUtil.isEmpty(roles)) {
+            return null;
+        }
         authorizationInfo.addRoles(roles.stream().map(Role::getName).collect(Collectors.toList()));
         List<RolePermission> rolePermissions = rolePermissionService.lambdaQuery()
                 .eq(RolePermission::getState, 1)

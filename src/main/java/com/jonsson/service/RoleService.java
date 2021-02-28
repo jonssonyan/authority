@@ -23,7 +23,7 @@ public class RoleService extends ServiceImpl<RoleDao, Role> {
     private RoleDao roleDao;
 
     public Set<Role> selectRolesByParentId(Set<Role> roles, Long id) {
-        List<Role> list = lambdaQuery().eq(Role::getParentId, id).list();
+        List<Role> list = lambdaQuery().eq(Role::getParentId, id).eq(Role::getState, 1).list();
         roles.addAll(list);
         for (Role role : list) {
             Set<Role> roles1 = selectRolesByParentId(roles, role.getId());
