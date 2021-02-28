@@ -41,7 +41,8 @@ public class UserRealm extends AuthorizingRealm {
         // 设置角色
         List<Role> roles = roleService.selectRoles(SecurityUtil.getCurrentUser().getRoleId(), true);
         authorizationInfo.addRoles(roles.stream().map(Role::getName).collect(Collectors.toList()));
-        List<RolePermission> rolePermissions = rolePermissionService.lambdaQuery().eq(RolePermission::getRoleId, SecurityUtil.getCurrentUser().getRoleId()).list();
+        List<RolePermission> rolePermissions = rolePermissionService.lambdaQuery().eq(RolePermission::getRoleId, SecurityUtil.getCurrentUser().getRoleId())
+                .eq(RolePermission::getState,1).list();
         if (CollectionUtil.isNotEmpty(rolePermissions)) {
             Set<Permission> set = new HashSet<>();
             for (RolePermission rolePermission : rolePermissions) {

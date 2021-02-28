@@ -8,7 +8,10 @@ import com.jonsson.entity.User;
 import com.jonsson.security.entity.JwtToken;
 import com.jonsson.security.utils.JwtUtils;
 import com.jonsson.security.utils.SecurityUtil;
-import com.jonsson.service.*;
+import com.jonsson.service.PermissionService;
+import com.jonsson.service.RolePermissionService;
+import com.jonsson.service.RoleService;
+import com.jonsson.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -48,7 +51,9 @@ public class JWTRealm extends AuthorizingRealm {
         // 设置角色
         List<Role> roles = roleService.selectRoles(SecurityUtil.getCurrentUser().getRoleId(), true);
         authorizationInfo.addRoles(roles.stream().map(Role::getName).collect(Collectors.toList()));
-        List<RolePermission> rolePermissions = rolePermissionService.lambdaQuery().eq(RolePermission::getRoleId, SecurityUtil.getCurrentUser().getRoleId()).list();
+        List<RolePermission> rolePermissions = rolePermissionService.lambdaQuery()
+                .eq(RolePermission::getState, 1)
+                .eq(RolePermission::getRoleId, SecurityUtil.getCurrentUser().getRoleId()).list();
         Set<Permission> set = new HashSet<>();
         for (RolePermission rolePermission : rolePermissions) {
             List<Permission> permissions = permissionService.lambdaQuery().eq(Permission::getId, rolePermission.getPermissionId()).list();
