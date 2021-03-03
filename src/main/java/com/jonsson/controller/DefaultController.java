@@ -103,7 +103,7 @@ public class DefaultController {
             } catch (UnauthorizedException e) {
                 return Result.fail("您没有得到相应的授权");
             } catch (Exception e) {
-                return Result.fail("出错了！！！");
+                return Result.fail("登录失败！！！");
             }
         }
         return Result.fail("你已经登录了");
