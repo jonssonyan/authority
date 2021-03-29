@@ -7,8 +7,8 @@ import com.jonsson.entity.Role;
 import com.jonsson.entity.RolePermission;
 import com.jonsson.entity.User;
 import com.jonsson.security.entity.JwtToken;
-import com.jonsson.security.utils.JwtUtils;
-import com.jonsson.security.utils.SecurityUtil;
+import com.jonsson.security.util.JwtUtil;
+import com.jonsson.security.util.SecurityUtil;
 import com.jonsson.service.PermissionService;
 import com.jonsson.service.RolePermissionService;
 import com.jonsson.service.RoleService;
@@ -72,7 +72,7 @@ public class JWTRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String token = (String) authenticationToken.getCredentials();
         // 解密获得username，用于和数据库进行对比
-        String username = JwtUtils.getUsernameByToken(token);
+        String username = JwtUtil.getUsernameByToken(token);
         if (StrUtil.isBlank(username)) {
             throw new AuthenticationException("token认证失败!");
         }

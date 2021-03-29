@@ -1,4 +1,4 @@
-package com.jonsson.security.utils;
+package com.jonsson.security.util;
 
 import com.jonsson.security.constant.SystemConstant;
 import io.jsonwebtoken.Claims;
@@ -16,7 +16,7 @@ import java.util.Date;
 @Data
 @Component
 @Slf4j
-public class JwtUtils {
+public class JwtUtil {
     /**
      * 生成足够的安全随机密钥，以适合符合规范的签名
      */

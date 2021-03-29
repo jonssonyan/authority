@@ -5,8 +5,8 @@ import com.jonsson.entity.User;
 import com.jonsson.entity.vo.Result;
 import com.jonsson.entity.vo.UserVO;
 import com.jonsson.security.constant.SystemConstant;
-import com.jonsson.security.utils.JwtUtils;
-import com.jonsson.security.utils.SecurityUtil;
+import com.jonsson.security.util.JwtUtil;
+import com.jonsson.security.util.SecurityUtil;
 import com.jonsson.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
@@ -81,7 +81,7 @@ public class DefaultController {
                 // shiro验证用户名密码
                 SecurityUtils.getSubject().login(usernamePasswordToken);
                 // 生成token
-                String token = JwtUtils.createToken(user.getUsername(), false);
+                String token = JwtUtil.createToken(user.getUsername(), false);
                 // 将用户户名和token返回
                 HashMap<String, String> map = new HashMap<>();
                 map.put("username", user.getUsername());

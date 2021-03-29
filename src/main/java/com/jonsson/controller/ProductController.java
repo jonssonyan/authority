@@ -6,7 +6,7 @@ import com.jonsson.entity.Category;
 import com.jonsson.entity.Product;
 import com.jonsson.entity.vo.ProductVO;
 import com.jonsson.entity.vo.Result;
-import com.jonsson.security.utils.SecurityUtil;
+import com.jonsson.security.util.SecurityUtil;
 import com.jonsson.service.CategoryService;
 import com.jonsson.service.ProductService;
 import com.jonsson.service.UserService;

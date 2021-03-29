@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jonsson.dao.UserDao;
 import com.jonsson.entity.User;
 import com.jonsson.entity.vo.UserVO;
-import com.jonsson.security.utils.SecurityUtil;
+import com.jonsson.security.util.SecurityUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

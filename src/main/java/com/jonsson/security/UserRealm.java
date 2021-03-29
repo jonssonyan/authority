@@ -3,7 +3,7 @@ package com.jonsson.security;
 import cn.hutool.core.collection.CollectionUtil;
 import com.jonsson.entity.*;
 import com.jonsson.security.constant.SystemConstant;
-import com.jonsson.security.utils.SecurityUtil;
+import com.jonsson.security.util.SecurityUtil;
 import com.jonsson.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.*;

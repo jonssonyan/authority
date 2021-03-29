@@ -8,7 +8,7 @@ import com.jonsson.dao.OrderDao;
 import com.jonsson.dao.ProductDao;
 import com.jonsson.entity.Order;
 import com.jonsson.entity.vo.OrderVO;
-import com.jonsson.security.utils.SecurityUtil;
+import com.jonsson.security.util.SecurityUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

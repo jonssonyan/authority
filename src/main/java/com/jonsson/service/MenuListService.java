@@ -12,7 +12,7 @@ import com.jonsson.entity.MenuList;
 import com.jonsson.entity.Role;
 import com.jonsson.entity.RoleMenuList;
 import com.jonsson.entity.vo.MenuListVO;
-import com.jonsson.security.utils.SecurityUtil;
+import com.jonsson.security.util.SecurityUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

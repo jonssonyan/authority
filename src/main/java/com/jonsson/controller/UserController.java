@@ -3,7 +3,7 @@ package com.jonsson.controller;
 import com.jonsson.entity.User;
 import com.jonsson.entity.vo.Result;
 import com.jonsson.entity.vo.UserVO;
-import com.jonsson.security.utils.SecurityUtil;
+import com.jonsson.security.util.SecurityUtil;
 import com.jonsson.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;

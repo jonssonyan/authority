@@ -1,4 +1,4 @@
-package com.jonsson.security.utils;
+package com.jonsson.security.util;
 
 import com.jonsson.entity.User;
 import org.apache.shiro.SecurityUtils;

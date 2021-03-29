@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import com.jonsson.entity.MenuList;
 import com.jonsson.entity.vo.MenuListVO;
 import com.jonsson.entity.vo.Result;
-import com.jonsson.security.utils.SecurityUtil;
+import com.jonsson.security.util.SecurityUtil;
 import com.jonsson.service.MenuListService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;

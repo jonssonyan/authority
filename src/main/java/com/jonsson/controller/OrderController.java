@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.jonsson.entity.Order;
 import com.jonsson.entity.vo.OrderVO;
 import com.jonsson.entity.vo.Result;
-import com.jonsson.security.utils.SecurityUtil;
+import com.jonsson.security.util.SecurityUtil;
 import com.jonsson.service.OrderService;
 import com.jonsson.service.ProductService;
 import com.jonsson.service.UserService;
