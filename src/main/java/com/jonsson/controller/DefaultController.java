@@ -1,6 +1,5 @@
 package com.jonsson.controller;
 
-import cn.hutool.core.util.StrUtil;
 import com.jonsson.entity.User;
 import com.jonsson.entity.vo.Result;
 import com.jonsson.entity.vo.UserVO;
@@ -8,6 +7,7 @@ import com.jonsson.security.constant.SystemConstant;
 import com.jonsson.security.util.JwtUtil;
 import com.jonsson.security.util.SecurityUtil;
 import com.jonsson.service.UserService;
+import com.jonsson.util.ValidatorUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -15,17 +15,12 @@ import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @Slf4j
@@ -36,33 +31,18 @@ public class DefaultController {
     /**
      * 注册用户
      *
-     * @param userVO
-     * @param bindingResult
+     * @param user
      * @return
      */
     @PostMapping("/register")
-    public Result<Object> insert(@Validated @RequestBody UserVO userVO, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            List<ObjectError> allErrors = bindingResult.getAllErrors();
-            return Result.fail(0, "参数错误", allErrors.stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList()));
-        }
-        Integer integer = userService.countByUsername(userVO.getUsername());
-        if (integer > 0) {
-            return Result.fail("用户名已经存在");
-        }
+    public Result<Object> register(@RequestBody User user) {
+        ValidatorUtil.validateEntity(user);
+        Integer integer = userService.countByUsername(user.getUsername());
+        if (integer > 0) return Result.fail("用户名已经存在");
         // 通过shiro默认的加密工具类为注册用户的密码进行加密
         Object salt = ByteSource.Util.bytes(SystemConstant.JWT_SECRET_KEY);
-        String md5 = new SimpleHash("MD5", userVO.getPassword(), salt, 1024).toHex();
-        User user = new User();
-        user.setUsername(userVO.getUsername());
+        String md5 = new SimpleHash("MD5", user.getPassword(), salt, 1024).toHex();
         user.setPassword(md5);
-        user.setEmail(userVO.getEmail());
-        if (StrUtil.isNotBlank(userVO.getQq())) {
-            user.setQq(userVO.getQq());
-        }
-        if (StrUtil.isNotBlank(userVO.getPhone())) {
-            user.setPhone(userVO.getPhone());
-        }
         userService.saveOrUpdate(user);
         return Result.success();
     }
@@ -70,21 +50,22 @@ public class DefaultController {
     /**
      * 登录
      *
-     * @param user 登录的用户对象
+     * @param userVO 登录的用户对象
      * @return
      */
     @PostMapping("/login")
-    public Result<Object> findByUsernameAndPassword(@RequestBody User user) {
+    public Result<Object> login(@RequestBody UserVO userVO) {
+        ValidatorUtil.validateEntity(userVO);
         if (!SecurityUtils.getSubject().isAuthenticated()) {
-            UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(user.getUsername(), user.getPassword(), true);
+            UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(userVO.getUsername(), userVO.getPassword(), true);
             try {
                 // shiro验证用户名密码
                 SecurityUtils.getSubject().login(usernamePasswordToken);
                 // 生成token
-                String token = JwtUtil.createToken(user.getUsername(), false);
+                String token = JwtUtil.createToken(userVO.getUsername(), false);
                 // 将用户户名和token返回
                 HashMap<String, String> map = new HashMap<>();
-                map.put("username", user.getUsername());
+                map.put("username", userVO.getUsername());
                 map.put("Authorization", token);
                 map.put("role_id", SecurityUtil.getCurrentUser().getRoleId().toString());
                 return Result.success(map);

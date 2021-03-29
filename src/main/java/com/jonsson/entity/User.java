@@ -18,31 +18,22 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1192800251115892576L;
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
-    @TableField("parent_id")
     private Long parentId; // 上级id
-    @TableField("domain")
-    private Long domain; // 域名 通过域名判断他的上级是谁
-    @TableField("role_id")
+    private String path; // 路径
+    private Integer level; // 等级
+    private Long domain; // 域名
     private Long roleId; // 角色id
-    @TableField("username")
-    @NotBlank(message = "{user.name.notBlank}")
+    @NotBlank(message = "用户名不能为空")
     private String username;
-    @NotBlank(message = "{user.password.notBlank}")
-    @TableField("password")
+    @NotBlank(message = "密码不能为空")
     private String password;
-    @NotBlank(message = "{user.email.notBlank}")
-    @Email(message = "{user.email.pattern}")
-    @TableField("email")
+    @NotBlank(message = "邮箱不能为空")
+    @Email(message = "邮箱格式不正确")
     private String email;
-    @TableField("qq")
     private String qq;
-    @TableField("phone")
     private String phone;
-    @TableField("state")
     private Integer state; // 状态 0/禁止 1/正常
-    @TableField("create_time")
     private Date createTime;
-    @TableField("update_time")
     private Date updateTime;
 
     // 用户的菜单列表，不同用户通过权限控制拥有不同的菜单

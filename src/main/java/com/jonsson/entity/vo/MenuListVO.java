@@ -16,7 +16,7 @@ public class MenuListVO extends BaseVO implements Serializable {
     private String name;
     private String icon;
     private Integer priority;
-    private String path;
+    private String router;
     private Integer state;
     private Date createTime;
     private Date updateTime;

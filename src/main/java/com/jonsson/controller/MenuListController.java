@@ -52,7 +52,7 @@ public class MenuListController {
         List<MenuList> menuLists = menuListService.lambdaQuery()
                 .eq(MenuList::getName, menuList.getName())
                 .or()
-                .eq(MenuList::getPath, menuList.getPath())
+                .eq(MenuList::getRouter, menuList.getRouter())
                 .ne(menuList.getId() != null, MenuList::getId, menuList.getId())
                 .list();
         if (CollectionUtil.isNotEmpty(menuLists)) {
