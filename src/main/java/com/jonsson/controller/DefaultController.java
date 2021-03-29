@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.jonsson.entity.User;
 import com.jonsson.entity.vo.Result;
 import com.jonsson.entity.vo.UserVO;
-import com.jonsson.security.constant.SystemConstants;
+import com.jonsson.security.constant.SystemConstant;
 import com.jonsson.security.utils.JwtUtils;
 import com.jonsson.security.utils.SecurityUtil;
 import com.jonsson.service.UserService;
@@ -51,7 +51,7 @@ public class DefaultController {
             return Result.fail("用户名已经存在");
         }
         // 通过shiro默认的加密工具类为注册用户的密码进行加密
-        Object salt = ByteSource.Util.bytes(SystemConstants.JWT_SECRET_KEY);
+        Object salt = ByteSource.Util.bytes(SystemConstant.JWT_SECRET_KEY);
         String md5 = new SimpleHash("MD5", userVO.getPassword(), salt, 1024).toHex();
         User user = new User();
         user.setUsername(userVO.getUsername());

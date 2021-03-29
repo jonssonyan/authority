@@ -1,10 +1,10 @@
-package com.jonsson.utils;
+package com.jonsson.util;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class DateUtils {
+public class DateUtil {
     /**
      * 获取指定日期的开始时间
      *

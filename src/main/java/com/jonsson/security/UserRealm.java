@@ -2,7 +2,7 @@ package com.jonsson.security;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.jonsson.entity.*;
-import com.jonsson.security.constant.SystemConstants;
+import com.jonsson.security.constant.SystemConstant;
 import com.jonsson.security.utils.SecurityUtil;
 import com.jonsson.service.*;
 import lombok.extern.slf4j.Slf4j;
@@ -82,6 +82,6 @@ public class UserRealm extends AuthorizingRealm {
             // 认证成功之后设置角色关联的菜单
             user.setMenuLists(CollectionUtil.isNotEmpty(collect) ? menuLists : null);
         }
-        return new SimpleAuthenticationInfo(user, user.getPassword(), ByteSource.Util.bytes(SystemConstants.JWT_SECRET_KEY), getName());
+        return new SimpleAuthenticationInfo(user, user.getPassword(), ByteSource.Util.bytes(SystemConstant.JWT_SECRET_KEY), getName());
     }
 }

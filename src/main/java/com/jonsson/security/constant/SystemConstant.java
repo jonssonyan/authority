@@ -1,6 +1,6 @@
 package com.jonsson.security.constant;
 
-public class SystemConstants {
+public class SystemConstant {
 
     /**
      * 角色的key

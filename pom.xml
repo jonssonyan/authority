@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.jonsson</groupId>
-    <artifactId>jonsson</artifactId>
+    <artifactId>authority</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>jonsson</name>
-    <description>jonsson system</description>
+    <name>authority</name>
+    <description>authority system</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>

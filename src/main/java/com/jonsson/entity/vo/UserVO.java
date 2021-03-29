@@ -10,7 +10,7 @@ import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class UserVO extends PageVO implements Serializable {
+public class UserVO extends BaseVO implements Serializable {
     private static final long serialVersionUID = 7021223076084300328L;
     private Long id;
     private Long parentId; // 上级id

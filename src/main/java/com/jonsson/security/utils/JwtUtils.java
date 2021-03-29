@@ -1,6 +1,6 @@
 package com.jonsson.security.utils;
 
-import com.jonsson.security.constant.SystemConstants;
+import com.jonsson.security.constant.SystemConstant;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -20,7 +20,7 @@ public class JwtUtils {
     /**
      * 生成足够的安全随机密钥，以适合符合规范的签名
      */
-    private static byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(SystemConstants.JWT_SECRET_KEY);
+    private static byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(SystemConstant.JWT_SECRET_KEY);
     private static SecretKey secretKey = Keys.hmacShaKeyFor(apiKeySecretBytes);
 
     /**
@@ -31,17 +31,17 @@ public class JwtUtils {
      * @return
      */
     public static String createToken(String subject, boolean isRememberMe) {
-        long expiration = isRememberMe ? SystemConstants.EXPIRATION_REMEMBER : SystemConstants.EXPIRATION;
+        long expiration = isRememberMe ? SystemConstant.EXPIRATION_REMEMBER : SystemConstant.EXPIRATION;
 
         String tokenPrefix = Jwts.builder()
-                .setHeaderParam("typ", SystemConstants.TOKEN_TYPE)
+                .setHeaderParam("typ", SystemConstant.TOKEN_TYPE)
                 .signWith(secretKey, SignatureAlgorithm.HS256) // 设置加密方式
                 .setIssuer("Faka") // //签发的人
                 .setIssuedAt(new Date()) // 签发时间
                 .setSubject(subject) // 主体
                 .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000)) // 有效时间
                 .compact();
-        return SystemConstants.TOKEN_PREFIX + tokenPrefix;
+        return SystemConstant.TOKEN_PREFIX + tokenPrefix;
     }
 
     public static boolean isTokenExpired(String token) {

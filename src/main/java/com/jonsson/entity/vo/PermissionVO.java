@@ -8,7 +8,7 @@ import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class PermissionVO extends PageVO implements Serializable {
+public class PermissionVO extends BaseVO implements Serializable {
     private static final long serialVersionUID = -2797154122372472654L;
     private Long id;
     private String name;

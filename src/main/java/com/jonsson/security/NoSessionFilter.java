@@ -1,7 +1,7 @@
 package com.jonsson.security;
 
 import cn.hutool.core.util.StrUtil;
-import com.jonsson.security.constant.SystemConstants;
+import com.jonsson.security.constant.SystemConstant;
 import com.jonsson.security.entity.JwtToken;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
@@ -26,17 +26,17 @@ public class NoSessionFilter extends BasicHttpAuthenticationFilter {
         String token = getTokenFromCookie(servletRequest);
         if (StrUtil.isBlank(token)) {
             // 2.从headers中获取
-            token = servletRequest.getHeader(SystemConstants.TOKEN_HEADER);
+            token = servletRequest.getHeader(SystemConstant.TOKEN_HEADER);
         }
         if (StrUtil.isBlank(token)) {
             // 3.从请求参数获取
-            token = request.getParameter(SystemConstants.TOKEN_HEADER);
+            token = request.getParameter(SystemConstant.TOKEN_HEADER);
         }
         if (StrUtil.isBlank(token)) {
             return false;
         }
         // 验证token
-        token = token.replace(SystemConstants.TOKEN_PREFIX, "");
+        token = token.replace(SystemConstant.TOKEN_PREFIX, "");
         JwtToken jwtToken = new JwtToken(token);
         // 提交给realm进行登入，如果错误他会抛出异常并被捕获
         // todo https://www.cnblogs.com/red-star/p/12121941.html https://blog.csdn.net/qq_43721032/article/details/110188342
@@ -65,7 +65,7 @@ public class NoSessionFilter extends BasicHttpAuthenticationFilter {
         int len = null == cookies ? 0 : cookies.length;
         if (len > 0) {
             for (Cookie cookie : cookies) {
-                if (cookie.getName().equals(SystemConstants.TOKEN_HEADER)) {
+                if (cookie.getName().equals(SystemConstant.TOKEN_HEADER)) {
                     token = cookie.getValue();
                     break;
                 }

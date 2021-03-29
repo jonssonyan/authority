@@ -8,7 +8,7 @@ import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class RoleMenuListVO extends PageVO implements Serializable {
+public class RoleMenuListVO extends BaseVO implements Serializable {
     private static final long serialVersionUID = 2310103009618403876L;
     private Long id;
     private Long roleId;

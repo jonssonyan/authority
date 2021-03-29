@@ -9,7 +9,7 @@ import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class ProductVO extends PageVO implements Serializable {
+public class ProductVO extends BaseVO implements Serializable {
     private static final long serialVersionUID = -4492232772022212494L;
     private Long id;
     private Long categoryId;

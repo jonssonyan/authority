@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-public class PageVO {
+public class BaseVO {
     @NotNull
     private Long pageSize = 10L;
     @NotNull
