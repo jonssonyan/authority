@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-@TableName("product")
+@TableName("`product`")
 public class Product implements Serializable {
     private static final long serialVersionUID = -54169886181194401L;
     @TableId(value = "id", type = IdType.AUTO)

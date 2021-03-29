@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-@TableName("category")
+@TableName("`category`")
 public class Category implements Serializable {
     private static final long serialVersionUID = -5888981197198625157L;
     @TableId(value = "id", type = IdType.AUTO)

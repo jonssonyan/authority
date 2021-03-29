@@ -8,4 +8,25 @@
                         inner join user u2
             where u1.id = u2.parent_id;
     </select>
+    <select id="selectChild" resultType="com.jonsson.entity.User">
+        select
+        u.id id,
+        u.parent_id parentId,
+        u.path path,
+        u.level level,
+        u.domain `domain`,
+        u.role_id role_id,
+        u.username username,
+        u.email email,
+        u.qq qq,
+        u.phone phone,
+        u.state state,
+        u.create_time createTime
+        from user u
+        <where>
+            <if test="path != null and path != ''">
+                u.path like concat('',#{path},'%')
+            </if>
+        </where>
+    </select>
 </mapper>

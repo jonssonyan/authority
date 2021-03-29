@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Data
-@TableName("permission")
+@TableName("`permission`")
 public class Permission implements Serializable {
     private static final long serialVersionUID = 4551749462814959751L;
     @TableId(value = "id", type = IdType.AUTO)

@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-@TableName("menu_list")
+@TableName("`menu_list`")
 public class MenuList implements Serializable {
     private static final long serialVersionUID = 6371298069578228652L;
     @TableId(value = "id", type = IdType.AUTO)

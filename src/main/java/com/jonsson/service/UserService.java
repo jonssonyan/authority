@@ -1,6 +1,5 @@
 package com.jonsson.service;
 
-import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -10,15 +9,17 @@ import com.jonsson.entity.User;
 import com.jonsson.entity.vo.UserVO;
 import com.jonsson.security.util.SecurityUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @Slf4j
 public class UserService extends ServiceImpl<UserDao, User> {
+    @Autowired
+    private UserDao userDao;
 
     public IPage<User> selectPage(UserVO userVO) {
         List<Long> longs = selectUserIds(SecurityUtil.getCurrentUser().getId(), true);
@@ -38,7 +39,7 @@ public class UserService extends ServiceImpl<UserDao, User> {
     }
 
     public User selectByUsername(String username) {
-        return lambdaQuery().eq(User::getUsername, username).one();
+        return lambdaQuery().select(User::getId, User::getRoleId, User::getUsername, User::getPassword, User::getState).eq(User::getUsername, username).one();
     }
 
     public Integer countByUsername(String username) {
@@ -48,25 +49,15 @@ public class UserService extends ServiceImpl<UserDao, User> {
     /**
      * 查询用户及下级用户的id集合
      *
-     * @param id
-     * @param bool
+     * @param id   用户id
+     * @param bool 是否包含自己
      * @return
      */
     public List<Long> selectUserIds(Long id, Boolean bool) {
-        List<Long> ids = new ArrayList<>();
+        User user = getById(id);
+        List<User> users = userDao.selectChild(user.getPath() + user.getId() + "-");
+        List<Long> ids = users.stream().map(User::getId).collect(Collectors.toList());
         if (bool) ids.add(id);
-        selectByParentId(id, ids);
         return ids;
-    }
-
-    public void selectByParentId(Long parentId, List<Long> ids) {
-        List<User> list = lambdaQuery().eq(User::getParentId, parentId).list();
-        if (CollectionUtil.isNotEmpty(list)) {
-            List<Long> collect = list.stream().map(User::getId).collect(Collectors.toList());
-            ids.addAll(collect);
-            for (User user : list) {
-                selectByParentId(user.getId(), ids);
-            }
-        }
     }
 }

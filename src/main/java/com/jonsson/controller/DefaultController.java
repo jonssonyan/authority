@@ -45,7 +45,7 @@ public class DefaultController {
             User one = userService.lambdaQuery().select(User::getId).eq(User::getDomain, domain).one();
             if (one != null) {
                 user.setParentId(one.getId());
-                String path = one.getPath() == null ? "" : one.getPath() + one.getId() + "-";
+                String path = (one.getPath() == null ? "" : one.getPath()) + one.getId() + "-";
                 user.setPath(path);
                 user.setLevel(path.split("-").length);
             } else {
@@ -101,6 +101,7 @@ public class DefaultController {
             } catch (UnauthorizedException e) {
                 return Result.fail("您没有得到相应的授权");
             } catch (Exception e) {
+                e.printStackTrace();
                 return Result.fail("登录失败！！！");
             }
         }

@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-@TableName("user")
+@TableName("`user`")
 public class User implements Serializable {
     private static final long serialVersionUID = 1192800251115892576L;
     @TableId(value = "id", type = IdType.AUTO)

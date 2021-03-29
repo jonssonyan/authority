@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-@TableName("role")
+@TableName("`role`")
 public class Role implements Serializable {
     private static final long serialVersionUID = 5593937318976491954L;
     @TableId(value = "id", type = IdType.AUTO)
