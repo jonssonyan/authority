@@ -16,13 +16,9 @@ public class RoleMenuList implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
     private Long roleId;
-    @TableField("menu_list_id")
-    private Long MenuListId;
-    @TableField("state")
+    private Long menuListId;
     private Integer state;
-    @TableField("create_time")
     private Date createTime;
-    @TableField("update_time")
     private Date updateTime;
 
     @TableField(exist = false)

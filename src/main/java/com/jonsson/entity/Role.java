@@ -17,16 +17,12 @@ public class Role implements Serializable {
     private static final long serialVersionUID = 5593937318976491954L;
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
-    @TableField("parent_id")
     private String parentId;
-    @TableField("name")
     @NotBlank
     private String name;
-    @TableField("state")
+    private String description;
     private Integer state;
-    @TableField("create_time")
     private Date createTime;
-    @TableField("update_time")
     private Date updateTime;
     @TableField(exist = false)
     private List<Permission> permissions;
