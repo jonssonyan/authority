@@ -1,5 +1,6 @@
 package com.jonsson.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.jonsson.entity.User;
 import com.jonsson.entity.vo.Result;
 import com.jonsson.entity.vo.UserVO;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 
 @RestController
@@ -35,8 +37,23 @@ public class DefaultController {
      * @return
      */
     @PostMapping("/register")
-    public Result<Object> register(@RequestBody User user) {
+    public Result<Object> register(@RequestBody User user, HttpServletRequest request) {
         ValidatorUtil.validateEntity(user);
+        try {
+            String domain = request.getServerName();
+            if (StrUtil.isBlank(domain)) return Result.fail("注册失败");
+            User one = userService.lambdaQuery().select(User::getId).eq(User::getDomain, domain).one();
+            if (one != null) {
+                user.setParentId(one.getId());
+                String path = one.getPath() == null ? "" : one.getPath() + one.getId() + "-";
+                user.setPath(path);
+                user.setLevel(path.split("-").length);
+            } else {
+                return Result.fail("注册失败");
+            }
+        } catch (Exception e) {
+            return Result.fail("注册失败");
+        }
         Integer integer = userService.countByUsername(user.getUsername());
         if (integer > 0) return Result.fail("用户名已经存在");
         // 通过shiro默认的加密工具类为注册用户的密码进行加密
