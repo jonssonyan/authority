@@ -24,7 +24,7 @@ public class OrderService extends ServiceImpl<OrderDao, Order> {
     private UserService userService;
 
     public IPage<Order> selectPage(OrderVO orderVO) {
-        List<Long> longs = userService.selectUserIds(SecurityUtil.getCurrentUser().getId(), true);
+        List<Long> longs = userService.selectChild(SecurityUtil.getCurrentUser().getId(), true);
         IPage<Order> orderIPage = lambdaQuery()
                 .in(Order::getCreator, longs)
                 .like(!StrUtil.isBlank(orderVO.getSubject()), Order::getSubject, orderVO.getSubject())

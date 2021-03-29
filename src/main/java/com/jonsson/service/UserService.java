@@ -22,7 +22,7 @@ public class UserService extends ServiceImpl<UserDao, User> {
     private UserDao userDao;
 
     public IPage<User> selectPage(UserVO userVO) {
-        List<Long> longs = selectUserIds(SecurityUtil.getCurrentUser().getId(), true);
+        List<Long> longs = selectChild(SecurityUtil.getCurrentUser().getId(), true);
         IPage<User> userIPage = lambdaQuery()
                 .in(User::getId, longs)
                 .like(StrUtil.isNotBlank(userVO.getUsername()), User::getUsername, userVO.getUsername())
@@ -53,7 +53,7 @@ public class UserService extends ServiceImpl<UserDao, User> {
      * @param bool 是否包含自己
      * @return
      */
-    public List<Long> selectUserIds(Long id, Boolean bool) {
+    public List<Long> selectChild(Long id, Boolean bool) {
         User user = getById(id);
         List<User> users = userDao.selectChild(user.getPath() + user.getId() + "-");
         List<Long> ids = users.stream().map(User::getId).collect(Collectors.toList());

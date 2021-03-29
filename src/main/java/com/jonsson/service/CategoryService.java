@@ -23,7 +23,7 @@ public class CategoryService extends ServiceImpl<CategoryDao, Category> {
     private UserService userService;
 
     public IPage<Category> selectPage(CategoryVO categoryVO) {
-        List<Long> longs = userService.selectUserIds(SecurityUtil.getCurrentUser().getId(), true);
+        List<Long> longs = userService.selectChild(SecurityUtil.getCurrentUser().getId(), true);
         return lambdaQuery().like(StrUtil.isNotBlank(categoryVO.getName()), Category::getName, categoryVO.getName())
                 .in(Category::getCreator, longs)
                 .eq(null != categoryVO.getState(), Category::getState, categoryVO.getState())

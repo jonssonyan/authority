@@ -40,7 +40,7 @@ public class ProductController {
     @PostMapping("/getById")
     @RequiresPermissions({"product:select"})
     public Result<Object> getById(@RequestBody ProductVO productVO) {
-        List<Long> longs = userService.selectUserIds(SecurityUtil.getCurrentUser().getId(), true);
+        List<Long> longs = userService.selectChild(SecurityUtil.getCurrentUser().getId(), true);
         Product product = productService.lambdaQuery().in(Product::getCreator, longs)
                 .eq(Product::getId, productVO.getId()).one();
         Category category = categoryService.getById(product.getCategoryId());
@@ -51,7 +51,7 @@ public class ProductController {
     @PostMapping("/selectList")
     @RequiresPermissions({"product:select"})
     public Result<Object> selectList(@RequestBody ProductVO productVO) {
-        List<Long> longs = userService.selectUserIds(SecurityUtil.getCurrentUser().getId(), true);
+        List<Long> longs = userService.selectChild(SecurityUtil.getCurrentUser().getId(), true);
         List<Product> products = productService.lambdaQuery().in(Product::getCreator, longs).list();
         return Result.success(products);
     }
@@ -89,7 +89,7 @@ public class ProductController {
     @PostMapping("/removeById")
     @RequiresPermissions({"product:delete"})
     public Result<Object> removeById(@RequestBody ProductVO productVO) {
-        List<Long> longs = userService.selectUserIds(SecurityUtil.getCurrentUser().getId(), true);
+        List<Long> longs = userService.selectChild(SecurityUtil.getCurrentUser().getId(), true);
         boolean remove = productService.lambdaUpdate().in(Product::getCreator, longs)
                 .eq(Product::getId, productVO.getId()).remove();
         if (remove) log.info("用户id{}删除商品{}", SecurityUtil.getCurrentUser().getId(), productVO.getName());

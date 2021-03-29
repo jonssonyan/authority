@@ -21,7 +21,7 @@ public class User implements Serializable {
     private Long parentId; // 上级id
     private String path; // 路径
     private Integer level; // 等级
-    private Long domain; // 域名
+    private String domain; // 域名
     private Long roleId; // 角色id
     @NotBlank(message = "用户名不能为空")
     private String username;

@@ -50,7 +50,7 @@ public class CategoryController {
     public Result<Object> removeById(@RequestBody CategoryVO categoryVO) {
         List<Category> categories = categoryService.selectCategorys(categoryVO.getId(), false);
         if (CollectionUtil.isNotEmpty(categories)) return Result.fail("该分类下含有子集,不可以删除");
-        List<Long> longs = userService.selectUserIds(SecurityUtil.getCurrentUser().getId(), true);
+        List<Long> longs = userService.selectChild(SecurityUtil.getCurrentUser().getId(), true);
         boolean remove = categoryService.lambdaUpdate()
                 .in(Category::getCreator, longs)
                 .eq(Category::getId, categoryVO.getId())
@@ -68,7 +68,7 @@ public class CategoryController {
     @PostMapping("/saveOrUpdate")
     @RequiresPermissions({"category:update", "category:add"})
     public Result<Object> saveOrUpdate(@RequestBody Category category) {
-        List<Long> longs = userService.selectUserIds(SecurityUtil.getCurrentUser().getId(), true);
+        List<Long> longs = userService.selectChild(SecurityUtil.getCurrentUser().getId(), true);
         Integer count = categoryService.lambdaQuery()
                 .eq(Category::getName, category.getName())
                 .in(Category::getCreator, longs)

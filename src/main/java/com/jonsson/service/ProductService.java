@@ -24,7 +24,7 @@ public class ProductService extends ServiceImpl<ProductDao, Product> {
     private UserService userService;
 
     public List<Product> selectByCategoryId(ProductVO productVO) {
-        List<Long> longs = userService.selectUserIds(SecurityUtil.getCurrentUser().getId(), true);
+        List<Long> longs = userService.selectChild(SecurityUtil.getCurrentUser().getId(), true);
         return lambdaQuery()
                 .eq(Product::getCategoryId, productVO.getCategoryId())
                 .in(Product::getCreator, longs)
@@ -33,7 +33,7 @@ public class ProductService extends ServiceImpl<ProductDao, Product> {
     }
 
     public IPage<Product> selectPage(ProductVO productVO) {
-        List<Long> longs = userService.selectUserIds(SecurityUtil.getCurrentUser().getId(), true);
+        List<Long> longs = userService.selectChild(SecurityUtil.getCurrentUser().getId(), true);
         IPage<Product> productIPage = lambdaQuery().like(!StrUtil.isBlank(productVO.getName()), Product::getName, productVO.getName())
                 .eq(null != productVO.getState(), Product::getState, productVO.getState())
                 .eq(null != productVO.getCategoryId(), Product::getCategoryId, productVO.getCategoryId())

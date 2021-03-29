@@ -11,7 +11,5 @@ import java.util.List;
 @Mapper
 @Repository
 public interface UserDao extends BaseMapper<User> {
-    List<Long> selectUserIds(Long id);
-
     List<User> selectChild(@Param("path") String path);
 }

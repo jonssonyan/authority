@@ -54,7 +54,7 @@ public class OrderController {
     @PostMapping("/removeById")
     @RequiresPermissions({"order:delete"})
     public Result<Object> removeById(@RequestBody OrderVO orderVO) {
-        List<Long> longs = userService.selectUserIds(SecurityUtil.getCurrentUser().getId(), true);
+        List<Long> longs = userService.selectChild(SecurityUtil.getCurrentUser().getId(), true);
         boolean remove = orderService.lambdaUpdate().in(Order::getCreator, longs)
                 .eq(Order::getId, orderVO.getId()).remove();
         if (remove) log.info("用户id{}删除了订单，订单号为{}", SecurityUtil.getCurrentUser().getId(), orderVO.getOutTradeNo());
