@@ -36,7 +36,7 @@ public class JwtUtil {
         String tokenPrefix = Jwts.builder()
                 .setHeaderParam("typ", SystemConstant.TOKEN_TYPE)
                 .signWith(secretKey, SignatureAlgorithm.HS256) // 设置加密方式
-                .setIssuer("Faka") // //签发的人
+                .setIssuer("Authority") // //签发的人
                 .setIssuedAt(new Date()) // 签发时间
                 .setSubject(subject) // 主体
                 .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000)) // 有效时间
