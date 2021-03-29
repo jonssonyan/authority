@@ -25,12 +25,14 @@ public class MenuListController {
     private MenuListService menuListService;
 
     @PostMapping("/selectList")
+    @RequiresPermissions({"menuList:select"})
     public Result<Object> selectList(@RequestBody MenuList menuList) {
         return Result.success(menuListService.selectList(SecurityUtil.getCurrentUser().getRoleId()));
     }
 
     @PostMapping("/selectPage")
     @RequiresRoles({"admin"})
+    @RequiresPermissions({"menuList:select"})
     public Result<Object> selectPage(@RequestBody MenuListVO MenuListVO) {
         return Result.success(menuListService.selectPage(MenuListVO));
     }

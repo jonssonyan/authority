@@ -8,6 +8,7 @@ import com.jonsson.security.util.SecurityUtil;
 import com.jonsson.service.CategoryService;
 import com.jonsson.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,18 +34,19 @@ public class CategoryController {
      * @return
      */
     @PostMapping("/selectPage")
+    @RequiresPermissions({"category:select"})
     public Result<Object> selectPage(@RequestBody CategoryVO categoryVO) {
         return Result.success(categoryService.selectPage(categoryVO));
     }
 
     /**
      * 单个删除分类
-     * 需要管理员权限
      *
      * @param categoryVO
      * @return
      */
     @PostMapping("/removeById")
+    @RequiresPermissions({"category:delete"})
     public Result<Object> removeById(@RequestBody CategoryVO categoryVO) {
         List<Category> categories = categoryService.selectCategorys(categoryVO.getId(), false);
         if (CollectionUtil.isNotEmpty(categories)) return Result.fail("该分类下含有子集,不可以删除");
@@ -59,12 +61,12 @@ public class CategoryController {
 
     /**
      * 修改或者更新分类
-     * 需要管理员权限
      *
      * @param category
      * @return
      */
     @PostMapping("/saveOrUpdate")
+    @RequiresPermissions({"category:update", "category:add"})
     public Result<Object> saveOrUpdate(@RequestBody Category category) {
         List<Long> longs = userService.selectUserIds(SecurityUtil.getCurrentUser().getId(), true);
         Integer count = categoryService.lambdaQuery()
@@ -79,6 +81,7 @@ public class CategoryController {
     }
 
     @PostMapping("/select")
+    @RequiresPermissions({"category:select"})
     public Result<Object> select(@RequestBody Category category) {
         List<Category> categories = categoryService.lambdaQuery()
                 .ne(category.getId() != null, Category::getId, category.getId())
@@ -88,6 +91,7 @@ public class CategoryController {
     }
 
     @PostMapping("/getById")
+    @RequiresPermissions({"category:select"})
     public Result<Object> getById(@RequestBody Category category) {
         Category one = categoryService.lambdaQuery().eq(Category::getCreator, SecurityUtil.getCurrentUser().getId())
                 .eq(Category::getId, category.getId()).one();

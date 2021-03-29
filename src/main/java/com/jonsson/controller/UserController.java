@@ -44,7 +44,7 @@ public class UserController {
      */
     @PostMapping("/saveOrUpdate")
     @RequiresRoles({"admin"})
-    @RequiresPermissions({"user:update"})
+    @RequiresPermissions({"user:update", "user:add"})
     public Result<Object> saveOrUpdate(@RequestBody User user) {
         if ("admin".equals(user.getUsername())) {
             return Result.fail("管理员不可以被禁用");

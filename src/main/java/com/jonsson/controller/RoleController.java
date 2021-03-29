@@ -21,8 +21,8 @@ public class RoleController {
     private RoleService roleService;
 
     @PostMapping("/saveOrUpdate")
-    @RequiresPermissions({"role:add", "role:update"})
     @RequiresRoles({"admin"})
+    @RequiresPermissions({"role:add", "role:update"})
     public Result<Object> saveOrUpdate(@RequestBody Role role) {
         Integer count = roleService.lambdaQuery().eq(Role::getName, role.getName())
                 .ne(role.getId() != null, Role::getId, role.getId())
@@ -33,30 +33,30 @@ public class RoleController {
     }
 
     @PostMapping("/removeById")
-    @RequiresPermissions({"role:delete"})
     @RequiresRoles({"admin"})
+    @RequiresPermissions({"role:delete"})
     public Result<Object> removeById(@RequestBody RoleVO roleVO) {
         roleService.removeById(roleVO.getId());
         return Result.success();
     }
 
     @PostMapping("/getById")
-    @RequiresPermissions({"role:select"})
     @RequiresRoles({"admin"})
+    @RequiresPermissions({"role:select"})
     public Result<Object> getById(@RequestBody Role role) {
         return Result.success(roleService.getById(role.getId()));
     }
 
     @PostMapping("/selectPage")
-    @RequiresPermissions({"role:select"})
     @RequiresRoles({"admin"})
+    @RequiresPermissions({"role:select"})
     public Result<Object> selectPage(@RequestBody RoleVO roleVO) {
         return Result.success(roleService.selectPage(roleVO));
     }
 
     @PostMapping("/select")
-    @RequiresPermissions({"role:select"})
     @RequiresRoles({"admin"})
+    @RequiresPermissions({"role:select"})
     public Result<Object> select(@RequestBody RoleVO roleVO) {
         return Result.success(roleService.lambdaQuery().list());
     }

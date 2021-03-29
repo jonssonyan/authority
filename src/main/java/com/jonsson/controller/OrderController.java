@@ -10,7 +10,6 @@ import com.jonsson.service.ProductService;
 import com.jonsson.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,11 +30,13 @@ public class OrderController {
     private UserService userService;
 
     @PostMapping("/selectPage")
+    @RequiresPermissions({"order:select"})
     public Result<Object> selectPage(@RequestBody OrderVO orderVO) {
         return Result.success(orderService.selectPage(orderVO));
     }
 
     @PostMapping("/getById")
+    @RequiresPermissions({"order:select"})
     public Result<Object> getById(@RequestBody OrderVO orderVO) {
         Order order = orderService.lambdaQuery().eq(Order::getCreator, SecurityUtil.getCurrentUser().getId())
                 .eq(Order::getId, orderVO.getId()).one();
@@ -51,7 +52,6 @@ public class OrderController {
      * @return
      */
     @PostMapping("/removeById")
-    @RequiresRoles({"admin"})
     @RequiresPermissions({"order:delete"})
     public Result<Object> removeById(@RequestBody OrderVO orderVO) {
         List<Long> longs = userService.selectUserIds(SecurityUtil.getCurrentUser().getId(), true);
@@ -62,7 +62,7 @@ public class OrderController {
     }
 
     @PostMapping("/saveOrUpdate")
-    @RequiresPermissions({"order:update"})
+    @RequiresPermissions({"order:update", "order:add"})
     public Result<Object> saveOrUpdate(@RequestBody Order order) {
         Integer count = orderService.lambdaQuery()
                 .eq(StrUtil.isNotBlank(order.getSubject()), Order::getSubject, order.getSubject())

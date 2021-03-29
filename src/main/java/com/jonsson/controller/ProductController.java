@@ -38,6 +38,7 @@ public class ProductController {
      * @return
      */
     @PostMapping("/getById")
+    @RequiresPermissions({"product:select"})
     public Result<Object> getById(@RequestBody ProductVO productVO) {
         List<Long> longs = userService.selectUserIds(SecurityUtil.getCurrentUser().getId(), true);
         Product product = productService.lambdaQuery().in(Product::getCreator, longs)
@@ -48,6 +49,7 @@ public class ProductController {
     }
 
     @PostMapping("/selectList")
+    @RequiresPermissions({"product:select"})
     public Result<Object> selectList(@RequestBody ProductVO productVO) {
         List<Long> longs = userService.selectUserIds(SecurityUtil.getCurrentUser().getId(), true);
         List<Product> products = productService.lambdaQuery().in(Product::getCreator, longs).list();
@@ -61,25 +63,25 @@ public class ProductController {
      * @return
      */
     @PostMapping("/selectByCategoryId")
+    @RequiresPermissions({"product:select"})
     public Result<Object> selectByCategoryId(@RequestBody ProductVO productVO) {
         return Result.success(productService.selectByCategoryId(productVO));
     }
 
     /**
      * 分页查询产品信息
-     * 需要管理员权限
      *
      * @param productVO
      * @return
      */
     @PostMapping("/selectPage")
+    @RequiresPermissions({"product:select"})
     public Result<Object> selectPage(@RequestBody ProductVO productVO) {
         return Result.success(productService.selectPage(productVO));
     }
 
     /**
      * 删除产品
-     * 需要管理员权限
      *
      * @param productVO
      * @return
@@ -96,7 +98,6 @@ public class ProductController {
 
     /**
      * 修改或者添加产品信息
-     * 需要管理员权限
      *
      * @param product
      * @return
