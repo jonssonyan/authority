@@ -72,8 +72,8 @@ public class CategoryService extends ServiceImpl<CategoryDao, Category> {
     public List<Category> selectChilds(Long creator) {
         List<Long> longs = userService.selectChild(creator, true);
         List<Category> categories = lambdaQuery()
-                .isNull(Category::getParentId).or().eq(Category::getParentId, "")
-                .eq(CollectionUtil.isNotEmpty(longs), Category::getCreator, longs)
+                .or(categoryLambdaQueryWrapper -> categoryLambdaQueryWrapper.isNull(Category::getParentId).or().eq(Category::getParentId, ""))
+                .in(Category::getCreator, longs)
                 .list();
         for (Category category : categories) {
             List<Category> categories1 = selectChild(category.getId());
