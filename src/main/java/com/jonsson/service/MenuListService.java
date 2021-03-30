@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,9 +50,10 @@ public class MenuListService extends ServiceImpl<MenuListDao, MenuList> {
         List<RoleMenuList> roleMenuLists = roleMenuListDao.selectList(new QueryWrapper<RoleMenuList>().lambda()
                 .in(RoleMenuList::getRoleId, ids));
         List<Long> collect = roleMenuLists.stream().map(RoleMenuList::getMenuListId).collect(Collectors.toList());
+        if (CollectionUtil.isEmpty(collect)) return new ArrayList<>();
         List<MenuList> menuLists = lambdaQuery()
-                .isNull(MenuList::getParentId).or().eq(MenuList::getParentId, "")
-                .in(CollectionUtil.isNotEmpty(collect), MenuList::getId, collect)
+                .or(menuListLambdaQueryWrapper -> menuListLambdaQueryWrapper.isNull(MenuList::getParentId).or().eq(MenuList::getParentId, ""))
+                .in(MenuList::getId, collect)
                 .list();
         for (MenuList menuList : menuLists) {
             List<MenuList> list = selectByParentId(menuList.getId(), collect);

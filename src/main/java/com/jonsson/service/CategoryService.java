@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jonsson.dao.CategoryDao;
-import com.jonsson.dao.RoleMenuListDao;
 import com.jonsson.entity.Category;
 import com.jonsson.entity.vo.CategoryVO;
 import com.jonsson.security.util.SecurityUtil;
@@ -14,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,10 +23,6 @@ public class CategoryService extends ServiceImpl<CategoryDao, Category> {
     private UserService userService;
     @Autowired
     private CategoryDao categoryDao;
-    @Autowired
-    private RoleMenuListDao roleMenuListDao;
-    @Autowired
-    private RoleService roleService;
 
     public IPage<Category> selectPage(CategoryVO categoryVO) {
         List<Long> longs = userService.selectChild(SecurityUtil.getCurrentUser().getId(), true);
@@ -71,6 +67,7 @@ public class CategoryService extends ServiceImpl<CategoryDao, Category> {
      */
     public List<Category> selectChilds(Long creator) {
         List<Long> longs = userService.selectChild(creator, true);
+        if (CollectionUtil.isNotEmpty(longs)) return new ArrayList<>();
         List<Category> categories = lambdaQuery()
                 .or(categoryLambdaQueryWrapper -> categoryLambdaQueryWrapper.isNull(Category::getParentId).or().eq(Category::getParentId, ""))
                 .in(Category::getCreator, longs)
