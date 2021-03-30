@@ -1,5 +1,6 @@
 package com.jonsson.entity;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -39,4 +40,16 @@ public class User implements Serializable {
     // 用户的菜单列表，不同用户通过权限控制拥有不同的菜单
     @TableField(exist = false)
     private List<MenuList> menuLists;
+
+    public final void parent(User user) {
+        if (user != null) {
+            this.parentId = user.getId();
+            this.path = (user.getPath() == null ? "" : user.getPath()) + user.getId() + "-";
+            this.level = StrUtil.count(this.path, "-");
+        } else {
+            this.parentId = null;
+            this.path = null;
+            this.level = null;
+        }
+    }
 }

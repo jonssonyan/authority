@@ -44,10 +44,7 @@ public class DefaultController {
             if (StrUtil.isBlank(domain)) return Result.fail("注册失败");
             User one = userService.lambdaQuery().select(User::getId).eq(User::getDomain, domain).one();
             if (one != null) {
-                user.setParentId(one.getId());
-                String path = (one.getPath() == null ? "" : one.getPath()) + one.getId() + "-";
-                user.setPath(path);
-                user.setLevel(StrUtil.count(path, "-"));
+                user.parent(one);
             } else {
                 return Result.fail("注册失败");
             }

@@ -1,5 +1,6 @@
 package com.jonsson.entity;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -27,4 +28,16 @@ public class Category implements Serializable {
 
     @TableField(exist = false)
     private List<Category> Categorys;
+
+    public final void parent(Category category) {
+        if (category != null) {
+            this.parentId = category.getId();
+            this.path = (category.getPath() == null ? "" : category.getPath()) + category.getId() + "-";
+            this.level = StrUtil.count(this.path, "-");
+        } else {
+            this.parentId = null;
+            this.path = null;
+            this.level = null;
+        }
+    }
 }
