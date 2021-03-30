@@ -32,4 +32,17 @@
             </if>
         </where>
     </select>
+    <select id="selectByPath" resultType="com.jonsson.entity.Category">
+        select id id,
+        `name` name,
+        creator creator,
+        `level` level,
+        create_time createTime
+        from category
+        <where>
+            <if test="path != null and path != ''">
+                path like concat('',#{path},'%')
+            </if>
+        </where>
+    </select>
 </mapper>

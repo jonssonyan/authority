@@ -18,4 +18,6 @@ public interface CategoryDao extends BaseMapper<Category> {
     void categoryInsert(@Param("category") Category category);
 
     List<Category> findAllExceptSelf(@Param("id") Long id);
+
+    List<Category> selectByPath(@Param("path") String path);
 }

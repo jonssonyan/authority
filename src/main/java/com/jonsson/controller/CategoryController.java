@@ -28,7 +28,6 @@ public class CategoryController {
 
     /**
      * 分页查询分类信息
-     * 需要管理员权限
      *
      * @param categoryVO
      * @return
@@ -48,7 +47,7 @@ public class CategoryController {
     @PostMapping("/removeById")
     @RequiresPermissions({"category:delete"})
     public Result<Object> removeById(@RequestBody CategoryVO categoryVO) {
-        List<Category> categories = categoryService.selectCategorys(categoryVO.getId(), false);
+        List<Category> categories = categoryService.selectList(categoryVO.getId(), false);
         if (CollectionUtil.isNotEmpty(categories)) return Result.fail("该分类下含有子集,不可以删除");
         List<Long> longs = userService.selectChild(SecurityUtil.getCurrentUser().getId(), true);
         boolean remove = categoryService.lambdaUpdate()
@@ -80,6 +79,12 @@ public class CategoryController {
         return Result.success();
     }
 
+    /**
+     * 查询某人创建的分类，但是排除当前选中的分类，用户修改分类使用
+     *
+     * @param category
+     * @return
+     */
     @PostMapping("/select")
     @RequiresPermissions({"category:select"})
     public Result<Object> select(@RequestBody Category category) {
@@ -90,6 +95,24 @@ public class CategoryController {
         return Result.success(categories);
     }
 
+    /**
+     * 查询分类，嵌套数据结构
+     *
+     * @param category
+     * @return
+     */
+    @PostMapping("/selectChilds")
+    @RequiresPermissions({"category:select"})
+    public Result<Object> selectChilds(@RequestBody Category category) {
+        return Result.success(categoryService.selectChilds(SecurityUtil.getCurrentUser().getId()));
+    }
+
+    /**
+     * 通过id查询单个分类
+     *
+     * @param category
+     * @return
+     */
     @PostMapping("/getById")
     @RequiresPermissions({"category:select"})
     public Result<Object> getById(@RequestBody Category category) {

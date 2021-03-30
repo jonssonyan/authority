@@ -16,8 +16,10 @@ public class Category implements Serializable {
     private static final long serialVersionUID = -5888981197198625157L;
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
-    private String name;
     private Long parentId;
+    private String path;
+    private Integer level;
+    private String name;
     private Long creator;
     private Integer state; // 状态 0/下架 1/上架 默认上架
     private Date createTime;

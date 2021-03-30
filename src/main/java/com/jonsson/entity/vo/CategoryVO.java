@@ -11,8 +11,10 @@ import java.util.Date;
 public class CategoryVO extends BaseVO implements Serializable {
     private static final long serialVersionUID = 4432159672935772196L;
     private Long id;
-    private String name;
     private Long parentId;
+    private String path;
+    private Integer level;
+    private String name;
     private Long creator;
     private Integer state;
     private Date createTime;
