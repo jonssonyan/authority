@@ -54,7 +54,7 @@ public class MenuListService extends ServiceImpl<MenuListDao, MenuList> {
                 .in(CollectionUtil.isNotEmpty(collect), MenuList::getId, collect)
                 .list();
         for (MenuList menuList : menuLists) {
-            List<MenuList> list = selectByParentId(menuList.getId());
+            List<MenuList> list = selectByParentId(menuList.getId(), collect);
             menuList.setMenuLists(list);
         }
         return menuLists;
@@ -66,11 +66,11 @@ public class MenuListService extends ServiceImpl<MenuListDao, MenuList> {
      * @param parentId
      * @return
      */
-    public List<MenuList> selectByParentId(Long parentId) {
-        List<MenuList> list = lambdaQuery().eq(MenuList::getParentId, parentId).list();
+    public List<MenuList> selectByParentId(Long parentId, List<Long> ids) {
+        List<MenuList> list = lambdaQuery().eq(MenuList::getParentId, parentId).in(MenuList::getId, ids).list();
         if (CollectionUtil.isEmpty(list)) return null;
         for (MenuList menuList : list) {
-            List<MenuList> menuLists = selectByParentId(menuList.getId());
+            List<MenuList> menuLists = selectByParentId(menuList.getId(), ids);
             menuList.setMenuLists(menuLists);
         }
         return list;
