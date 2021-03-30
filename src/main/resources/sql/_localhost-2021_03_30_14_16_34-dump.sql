@@ -24,8 +24,10 @@ DROP TABLE IF EXISTS `category`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `category` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `name` varchar(50) DEFAULT NULL COMMENT '名称',
   `parent_id` bigint(20) DEFAULT NULL COMMENT '父级id',
+  `path` varchar(200) DEFAULT NULL COMMENT '路径',
+  `level` int(11) DEFAULT NULL COMMENT '等级',
+  `name` varchar(50) DEFAULT NULL COMMENT '名称',
   `creator` bigint(20) DEFAULT NULL COMMENT '创建人',
   `state` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态：0/下架 1/上架',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -40,7 +42,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (6,'华为',6,3,1,'2021-01-15 00:50:10','2021-01-15 00:50:10'),(7,'用户分类测试1',NULL,4,1,'2021-02-24 22:10:43','2021-02-24 22:10:43');
+INSERT INTO `category` VALUES (6,7,'7-',1,'华为',3,1,'2021-01-15 00:50:10','2021-03-30 10:43:03'),(7,NULL,NULL,0,'手机',4,1,'2021-02-24 22:10:43','2021-03-30 10:43:03');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -296,4 +298,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-29 18:27:34
+-- Dump completed on 2021-03-30 14:16:34
