@@ -47,7 +47,7 @@ public class DefaultController {
                 user.setParentId(one.getId());
                 String path = (one.getPath() == null ? "" : one.getPath()) + one.getId() + "-";
                 user.setPath(path);
-                user.setLevel(path.split("-").length);
+                user.setLevel(StrUtil.count(path, "-"));
             } else {
                 return Result.fail("注册失败");
             }
