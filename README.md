@@ -20,31 +20,49 @@ https://github.com/jonssonyan/authority-ui
 ![界面1](https://img-blog.csdnimg.cn/20210224010314613.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3kxNTM0NDE0NDI1,size_16,color_FFFFFF,t_70)
 ![界面2](https://img-blog.csdnimg.cn/20210224233054534.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3kxNTM0NDE0NDI1,size_16,color_FFFFFF,t_70)
 
-# 初始权限
+# 角色初始权限
 
-| 角色  | 权限名称 |
+| admin | 用户查询 |
 | :---: | :------: |
-| admin | 商品修改 |
-| admin | 商品删除 |
-| admin | 商品添加 |
-| admin | 授权删除 |
-| admin | 授权查询 |
-| admin | 授权添加 |
-| admin | 权限查询 |
 | admin | 用户修改 |
 | admin | 用户删除 |
-| admin | 用户查询 |
-| admin | 菜单修改 |
-| admin | 菜单删除 |
-| admin | 菜单添加 |
+| admin | 商品删除 |
+| admin | 商品修改 |
+| admin | 商品添加 |
+| admin | 角色添加 |
 | admin | 角色修改 |
 | admin | 角色删除 |
 | admin | 角色查询 |
-| admin | 角色添加 |
+| admin | 菜单删除 |
+| admin | 菜单添加 |
+| admin | 菜单修改 |
 | admin | 订单删除 |
-| admin | 订单更新 |
-| user  | 商品修改 |
+| admin | 订单修改 |
+| admin | 授权添加 |
+| admin | 授权删除 |
+| admin | 授权查询 |
+| admin | 权限查询 |
+| admin | 用户添加 |
+| admin | 商品查询 |
+| admin | 菜单查询 |
+| admin | 订单查询 |
+| admin | 订单添加 |
+| admin | 分类查询 |
+| admin | 分类删除 |
+| admin | 分类修改 |
+| admin | 分类添加 |
 | user  | 商品删除 |
+| user  | 商品修改 |
 | user  | 商品添加 |
 | user  | 订单删除 |
-| user  | 订单更新 |
+| user  | 订单修改 |
+| user  | 菜单查询 |
+| user  | 商品查询 |
+| user  | 菜单查询 |
+| user  | 订单查询 |
+| user  | 订单添加 |
+| user  | 用户修改 |
+| user  | 分类查询 |
+| user  | 分类删除 |
+| user  | 分类修改 |
+| user  | 分类添加 |
