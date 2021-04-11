@@ -41,7 +41,7 @@
         from category
         <where>
             <if test="path != null and path != ''">
-                path like concat('',#{path},'%')
+                category.`path` like concat('',#{path},'%')
             </if>
         </where>
     </select>

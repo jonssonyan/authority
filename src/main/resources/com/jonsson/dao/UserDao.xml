@@ -19,7 +19,7 @@
         from user u
         <where>
             <if test="path != null and path != ''">
-                u.path like concat('',#{path},'%')
+                u.`path` like concat('',#{path},'%')
             </if>
         </where>
     </select>

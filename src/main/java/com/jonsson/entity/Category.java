@@ -18,6 +18,7 @@ public class Category implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
     private Long parentId;
+    @TableField("`path`")
     private String path;
     private Integer level;
     private String name;

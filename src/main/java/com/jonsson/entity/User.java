@@ -20,6 +20,7 @@ public class User implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
     private Long parentId; // 上级id
+    @TableField("`path`")
     private String path; // 路径
     private Integer level; // 等级
     private String domain; // 域名
