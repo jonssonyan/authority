@@ -2,6 +2,8 @@
 一个可以管理用户权限的前后端分离系统
 # 在线演示
 https://www.bilibili.com/video/BV1DK4y1S7h7
+# 部署视频教程
+https://www.bilibili.com/video/BV1kV411s7N2
 # 测试账号
 管理员：admin 123456
 普通用户：user1 123456
