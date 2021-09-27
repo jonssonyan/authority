@@ -9,6 +9,7 @@ https://github.com/jonssonyan/authority-ui
 # 相关视频
 
 演示视频：https://www.bilibili.com/video/BV1DK4y1S7h7
+
 部署视频：https://www.bilibili.com/video/BV1kV411s7N2
 
 # 开发工具
