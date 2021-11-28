@@ -14,7 +14,7 @@ https://github.com/jonssonyan/authority-ui
 
 # 界面
 
-![界面](https://files.mdnice.com/user/10819/7388721c-8349-48fb-ada0-6e4059f1a461.png)
+![界面](https://img-blog.csdnimg.cn/e4dbdb7c212745358db75b0231af3d35.png)
 
 # 开发工具
 
