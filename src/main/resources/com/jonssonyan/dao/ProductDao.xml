@@ -11,7 +11,7 @@
         <result column="create_time" property="createTime"/>
     </resultMap>
     <insert id="productInsert">
-        insert into product(`name`, price, state, category_id)
+        insert into product(`name`, price, `state`, category_id)
         values (#{product.name}, #{product.price}, #{product.state}, #{product.categoryId})
     </insert>
     <delete id="productDeleteByIds">

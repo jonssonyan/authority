@@ -22,11 +22,11 @@
         where id = #{id}
     </update>
     <insert id="categoryInsert">
-        insert into `category`(`name`, state)
+        insert into `category`(`name`, `state`)
         values (#{category.name}, #{category.state})
     </insert>
     <select id="findAllExceptSelf" resultType="com.jonssonyan.entity.Category">
-        select id, `name`, parent, state, create_time
+        select id, `name`, parent, `state`, create_time
         from category
         <where>
             <if test="id != null">
