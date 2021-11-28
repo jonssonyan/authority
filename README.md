@@ -39,6 +39,6 @@ https://github.com/jonssonyan/authority-ui
 
 1. 默认注册的用户是普通用户角色
 
-2. SQL文件在`src/resources/sql/`文件夹下
+2. SQL文件在`src/resources/sql/authority.sql`文件夹下
 
 3. Swagger地址: `localhost/IP:8888/authority/swagger-ui.html`
