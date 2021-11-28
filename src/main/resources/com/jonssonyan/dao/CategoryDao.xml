@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jonssonyan.dao.CategoryDao">
+    <delete id="categoryDeleteByIds">
+        delete
+        from `category` where id in
+        <foreach collection="ids" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+    </delete>
+    <update id="categoryUpdateById">
+        update `category`
+        <set>
+            <if test="category.name != null and category.name != ''">
+                `name` = #{category.name}
+            </if>
+            <if test="category.state != null">
+                , state = #{category.state}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <insert id="categoryInsert">
+        insert into `category`(`name`, state)
+        values (#{category.name}, #{category.state})
+    </insert>
+    <select id="findAllExceptSelf" resultType="com.jonssonyan.entity.Category">
+        select id, `name`, parent, state, create_time
+        from category
+        <where>
+            <if test="id != null">
+                id != #{id}
+            </if>
+        </where>
+    </select>
+    <select id="selectByPath" resultType="com.jonssonyan.entity.Category">
+        select id          id,
+               `name`      name,
+               creator     creator,
+               `level`     level,
+               create_time createTime
+        from category
+        <where>
+            <if test="path != null and path != ''">
+                category.`path` like concat('', #{path}, '%')
+            </if>
+        </where>
+    </select>
+</mapper>
