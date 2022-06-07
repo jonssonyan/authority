@@ -20,14 +20,17 @@ https://github.com/jonssonyan/authority-ui
 
 1. JDK 1.8
 2. IDEA 2019.3.5
+3. DataGrip 2019.3.5
+4. MySQL 5.7.29
 
 # 框架/技术
 
 1. Spring Boot
-2. Mybatis-plus
+2. Mybatis Plus
 3. Shiro
 4. JWT
 5. Java
+6. Swagger
 
 # 默认账号
 
@@ -35,10 +38,8 @@ https://github.com/jonssonyan/authority-ui
 
 - 用户名: user1 密码: 123456 (普通用户)
 
-**提示**
+# PS
 
-1. 默认注册的用户是普通用户角色
+1. SQL文件位于`classpath:sql/authority.sql`
 
-2. SQL文件位于`src/resources/sql/authority.sql`
-
-3. Swagger地址: `localhost/IP:8888/authority/swagger-ui.html`
+2. Swagger地址: `localhost/IP地址:8888/authority/swagger-ui.html`
