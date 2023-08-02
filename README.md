@@ -1,20 +1,20 @@
-# authority
+# Authority
 
 权限管理系统后端
 
-# 前端地址
+# 演示
 
-https://github.com/jonssonyan/authority-ui
+![演示](https://img-blog.csdnimg.cn/e4dbdb7c212745358db75b0231af3d35.png)
+
+# 作者
+
+[jonssonyan](https://jonssonyan.com)
 
 # 相关视频
 
 [演示视频](https://www.bilibili.com/video/BV1DK4y1S7h7)
 
 [部署视频](https://www.bilibili.com/video/BV1kV411s7N2)
-
-# 界面
-
-![界面](https://img-blog.csdnimg.cn/e4dbdb7c212745358db75b0231af3d35.png)
 
 # 开发工具
 
@@ -25,12 +25,7 @@ https://github.com/jonssonyan/authority-ui
 
 # 框架/技术
 
-1. Spring Boot
-2. Mybatis Plus
-3. Shiro
-4. JWT
-5. Java
-6. Swagger
+1. JDK 1.8 / Spring Boot / Mybatis Plus / Shiro / JWT / Swagger
 
 # 默认账号
 
@@ -38,7 +33,7 @@ https://github.com/jonssonyan/authority-ui
 
 - 用户名: user1 密码: 123456 (普通用户)
 
-# PS
+# 备注
 
 1. SQL文件位于`classpath:sql/authority.sql`
 
