@@ -25,7 +25,7 @@ Spring Boot+Vue.js权限管理系统后端
 
 # 框架/技术
 
-1. JDK 1.8 / Spring Boot / Mybatis Plus / Shiro / JWT / Swagger
+JDK 1.8 / Spring Boot / Mybatis Plus / Shiro / JWT / Swagger
 
 # 默认账号
 
