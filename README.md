@@ -1,6 +1,6 @@
 # Authority
 
-权限管理系统后端
+Spring Boot+Vue.js权限管理系统后端
 
 # 演示
 
