@@ -2,7 +2,7 @@
 
 Spring Boot+Vue.js权限管理系统后端
 
-# 演示
+# UI展示
 
 ![演示](https://img-blog.csdnimg.cn/e4dbdb7c212745358db75b0231af3d35.png)
 
