@@ -36,16 +36,16 @@ public class OrderController {
     @ApiOperation(value = "分页查询订单")
     @GetMapping("/selectPage")
     @RequiresPermissions({"order:select"})
-    public Result selectPage(OrderDto orderVO) {
-        return Result.success(orderService.selectPage(orderVO));
+    public Result selectPage(OrderDto orderDto) {
+        return Result.success(orderService.selectPage(orderDto));
     }
 
     @ApiOperation(value = "根据id查询订单")
     @GetMapping("/getById")
     @RequiresPermissions({"order:select"})
-    public Result getById(OrderDto orderVO) {
+    public Result getById(OrderDto orderDto) {
         Order order = orderService.lambdaQuery().eq(Order::getCreator, SecurityUtil.getCurrentUser().getId())
-                .eq(Order::getId, orderVO.getId()).one();
+                .eq(Order::getId, orderDto.getId()).one();
         if (order != null) order.setProduct(productService.getById(order.getProductId()));
         return Result.success(order);
     }
@@ -53,11 +53,11 @@ public class OrderController {
     @ApiOperation(value = "删除订单")
     @PostMapping("/removeById")
     @RequiresPermissions({"order:delete"})
-    public Result removeById(@RequestBody OrderDto orderVO) {
+    public Result removeById(@RequestBody OrderDto orderDto) {
         List<Long> longs = userService.selectChild(SecurityUtil.getCurrentUser().getId(), true);
         boolean remove = orderService.lambdaUpdate().in(Order::getCreator, longs)
-                .eq(Order::getId, orderVO.getId()).remove();
-        if (remove) log.info("用户id{}删除了订单，订单号为{}", SecurityUtil.getCurrentUser().getId(), orderVO.getOutTradeNo());
+                .eq(Order::getId, orderDto.getId()).remove();
+        if (remove) log.info("用户id{}删除了订单，订单号为{}", SecurityUtil.getCurrentUser().getId(), orderDto.getOutTradeNo());
         return Result.success();
     }
 

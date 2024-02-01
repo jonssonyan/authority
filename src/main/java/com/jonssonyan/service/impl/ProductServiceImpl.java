@@ -27,25 +27,25 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, Product> impleme
     private UserService userService;
 
     @Override
-    public List<Product> selectByCategoryId(ProductDto productVO) {
+    public List<Product> selectByCategoryId(ProductDto productDto) {
         List<Long> longs = userService.selectChild(SecurityUtil.getCurrentUser().getId(), true);
         return lambdaQuery()
-                .eq(Product::getCategoryId, productVO.getCategoryId())
+                .eq(Product::getCategoryId, productDto.getCategoryId())
                 .in(Product::getCreator, longs)
                 .orderByDesc(Product::getState)
                 .list();
     }
 
     @Override
-    public IPage<Product> selectPage(ProductDto productVO) {
+    public IPage<Product> selectPage(ProductDto productDto) {
         List<Long> longs = userService.selectChild(SecurityUtil.getCurrentUser().getId(), true);
-        IPage<Product> productIPage = lambdaQuery().like(!StrUtil.isBlank(productVO.getName()), Product::getName, productVO.getName())
-                .eq(null != productVO.getState(), Product::getState, productVO.getState())
-                .eq(null != productVO.getCategoryId(), Product::getCategoryId, productVO.getCategoryId())
-                .between(null != productVO.getStartTime() && null != productVO.getEndTime(), Product::getCreateTime, productVO.getStartTime(), productVO.getEndTime())
+        IPage<Product> productIPage = lambdaQuery().like(!StrUtil.isBlank(productDto.getName()), Product::getName, productDto.getName())
+                .eq(null != productDto.getState(), Product::getState, productDto.getState())
+                .eq(null != productDto.getCategoryId(), Product::getCategoryId, productDto.getCategoryId())
+                .between(null != productDto.getStartTime() && null != productDto.getEndTime(), Product::getCreateTime, productDto.getStartTime(), productDto.getEndTime())
                 .in(Product::getCreator, longs)
                 .orderByDesc(Product::getCreateTime)
-                .page(new Page<>(productVO.getPageNum(), productVO.getPageSize()));
+                .page(new Page<>(productDto.getPageNum(), productDto.getPageSize()));
         productIPage.getRecords().forEach(product -> {
             Category category = categoryService.getById(product.getCategoryId());
             product.setCategory(category);

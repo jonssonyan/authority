@@ -45,9 +45,9 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, Role> implements RoleS
     }
 
     @Override
-    public IPage<Role> selectPage(RoleDto roleVO) {
+    public IPage<Role> selectPage(RoleDto roleDto) {
         return lambdaQuery()
-                .like(StrUtil.isNotBlank(roleVO.getName()), Role::getName, roleVO.getName())
-                .page(new Page<>(roleVO.getPageNum(), roleVO.getPageSize()));
+                .like(StrUtil.isNotBlank(roleDto.getName()), Role::getName, roleDto.getName())
+                .page(new Page<>(roleDto.getPageNum(), roleDto.getPageSize()));
     }
 }

@@ -51,8 +51,8 @@ public class RolePermissionController {
     @PostMapping("/removeById")
     @RequiresPermissions({"rolePermission:delete"})
     @RequiresRoles({"admin"})
-    public Result removeById(@RequestBody RolePermissionDto rolePermissionVO) {
-        rolePermissionService.removeById(rolePermissionVO.getId());
+    public Result removeById(@RequestBody RolePermissionDto rolePermissionDto) {
+        rolePermissionService.removeById(rolePermissionDto.getId());
         return Result.success();
     }
 
@@ -60,16 +60,16 @@ public class RolePermissionController {
     @GetMapping("/selectPage")
     @RequiresRoles({"admin"})
     @RequiresPermissions({"rolePermission:select"})
-    public Result selectPage(RolePermissionDto rolePermissionVO) {
-        return Result.success(rolePermissionService.selectPage(rolePermissionVO));
+    public Result selectPage(RolePermissionDto rolePermissionDto) {
+        return Result.success(rolePermissionService.selectPage(rolePermissionDto));
     }
 
     @ApiOperation(value = "根据id查询角色和权限关系")
     @GetMapping("/getById")
     @RequiresRoles({"admin"})
     @RequiresPermissions({"rolePermission:select"})
-    public Result getById(RolePermissionDto rolePermissionVO) {
-        RolePermission rolePermission = rolePermissionService.getById(rolePermissionVO.getId());
+    public Result getById(RolePermissionDto rolePermissionDto) {
+        RolePermission rolePermission = rolePermissionService.getById(rolePermissionDto.getId());
         if (rolePermission != null) {
             Role role = roleService.getById(rolePermission.getRoleId());
             Permission permission = permissionService.getById(rolePermission.getPermissionId());

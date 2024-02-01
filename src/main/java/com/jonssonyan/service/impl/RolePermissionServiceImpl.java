@@ -22,10 +22,10 @@ public class RolePermissionServiceImpl extends ServiceImpl<RolePermissionDao, Ro
     private PermissionService permissionService;
 
     @Override
-    public IPage<RolePermission> selectPage(RolePermissionDto rolePermissionVO) {
+    public IPage<RolePermission> selectPage(RolePermissionDto rolePermissionDto) {
         IPage<RolePermission> rolePermissionIPage = lambdaQuery()
                 .orderByAsc(RolePermission::getRoleId)
-                .page(new Page<>(rolePermissionVO.getPageNum(), rolePermissionVO.getPageSize()));
+                .page(new Page<>(rolePermissionDto.getPageNum(), rolePermissionDto.getPageSize()));
         rolePermissionIPage.getRecords().forEach(rolePermission -> {
             rolePermission.setRole(roleService.getById(rolePermission.getRoleId()));
             rolePermission.setPermission(permissionService.getById(rolePermission.getPermissionId()));

@@ -39,16 +39,16 @@ public class MenuListController {
     @GetMapping("/selectPage")
     @RequiresRoles({"admin"})
     @RequiresPermissions({"menuList:select"})
-    public Result selectPage(MenuListDto MenuListVO) {
-        return Result.success(menuListService.selectPage(MenuListVO));
+    public Result selectPage(MenuListDto menuListDto) {
+        return Result.success(menuListService.selectPage(menuListDto));
     }
 
     @ApiOperation(value = "根据id删除菜单")
     @PostMapping("/removeById")
     @RequiresRoles({"admin"})
     @RequiresPermissions({"menuList:delete"})
-    public Result removeById(@RequestBody MenuListDto MenuListVO) {
-        menuListService.removeById(MenuListVO.getId());
+    public Result removeById(@RequestBody MenuListDto menuListDto) {
+        menuListService.removeById(menuListDto.getId());
         return Result.success();
     }
 

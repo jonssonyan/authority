@@ -33,8 +33,8 @@ public class UserController {
     @GetMapping("/selectPage")
     @RequiresRoles({"admin"})
     @RequiresPermissions({"user:select"})
-    public Result selectPage(UserDto userVO) {
-        return Result.success(userService.selectPage(userVO));
+    public Result selectPage(UserDto userDto) {
+        return Result.success(userService.selectPage(userDto));
     }
 
     @ApiOperation(value = "添加或或者修改用户")
@@ -61,16 +61,16 @@ public class UserController {
     @PostMapping("/removeById")
     @RequiresRoles({"admin"})
     @RequiresPermissions({"user:delete"})
-    public Result removeById(@RequestBody UserDto userVO) {
-        userService.removeById(userVO.getId());
+    public Result removeById(@RequestBody UserDto userDto) {
+        userService.removeById(userDto.getId());
         return Result.success();
     }
 
     @ApiOperation(value = "通过id查询用户")
     @GetMapping("/getById")
     @RequiresPermissions({"user:select"})
-    public Result selectById(UserDto userVO) {
-        return Result.success(userService.getById(userVO.getId()));
+    public Result selectById(UserDto userDto) {
+        return Result.success(userService.getById(userDto.getId()));
     }
 
     @ApiOperation(value = "注销登录，前提是在登录状态")

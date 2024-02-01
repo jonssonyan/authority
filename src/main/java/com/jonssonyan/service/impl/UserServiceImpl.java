@@ -22,21 +22,21 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     @Autowired
     private UserDao userDao;
 
-    public IPage<User> selectPage(UserDto userVO) {
+    public IPage<User> selectPage(UserDto userDto) {
         List<Long> longs = selectChild(SecurityUtil.getCurrentUser().getId(), true);
         return lambdaQuery()
                 .in(User::getId, longs)
-                .like(StrUtil.isNotBlank(userVO.getUsername()), User::getUsername, userVO.getUsername())
-                .like(StrUtil.isNotBlank(userVO.getEmail()), User::getEmail, userVO.getEmail())
-                .like(StrUtil.isNotBlank(userVO.getQq()), User::getQq, userVO.getQq())
-                .like(StrUtil.isNotBlank(userVO.getPhone()), User::getPhone, userVO.getPhone())
-                .eq(null != userVO.getState(), User::getState, userVO.getState())
-                .eq(null != userVO.getRoleId(), User::getRoleId, userVO.getRoleId())
-                .eq(null != userVO.getParentId(), User::getParentId, userVO.getParentId())
-                .between(null != userVO.getStartTime() && null != userVO.getEndTime(), User::getCreateTime, userVO.getStartTime(), userVO.getEndTime())
+                .like(StrUtil.isNotBlank(userDto.getUsername()), User::getUsername, userDto.getUsername())
+                .like(StrUtil.isNotBlank(userDto.getEmail()), User::getEmail, userDto.getEmail())
+                .like(StrUtil.isNotBlank(userDto.getQq()), User::getQq, userDto.getQq())
+                .like(StrUtil.isNotBlank(userDto.getPhone()), User::getPhone, userDto.getPhone())
+                .eq(null != userDto.getState(), User::getState, userDto.getState())
+                .eq(null != userDto.getRoleId(), User::getRoleId, userDto.getRoleId())
+                .eq(null != userDto.getParentId(), User::getParentId, userDto.getParentId())
+                .between(null != userDto.getStartTime() && null != userDto.getEndTime(), User::getCreateTime, userDto.getStartTime(), userDto.getEndTime())
                 .orderByAsc(User::getRoleId)
                 .orderByDesc(User::getCreateTime)
-                .page(new Page<>(userVO.getPageNum(), userVO.getPageSize()));
+                .page(new Page<>(userDto.getPageNum(), userDto.getPageSize()));
     }
 
     public User selectByUsername(String username) {

@@ -32,13 +32,13 @@ public class MenuListServiceImpl extends ServiceImpl<MenuListDao, MenuList> impl
     private RoleMenuListDao roleMenuListDao;
 
     @Override
-    public IPage<MenuList> selectPage(MenuListDto menuListVO) {
+    public IPage<MenuList> selectPage(MenuListDto menuListDto) {
         return lambdaQuery()
-                .like(StrUtil.isNotBlank(menuListVO.getName()), MenuList::getName, menuListVO.getName())
-                .eq(null != menuListVO.getState(), MenuList::getState, menuListVO.getState())
-                .between(null != menuListVO.getStartTime() && null != menuListVO.getEndTime(), MenuList::getCreateTime, menuListVO.getStartTime(), menuListVO.getEndTime())
+                .like(StrUtil.isNotBlank(menuListDto.getName()), MenuList::getName, menuListDto.getName())
+                .eq(null != menuListDto.getState(), MenuList::getState, menuListDto.getState())
+                .between(null != menuListDto.getStartTime() && null != menuListDto.getEndTime(), MenuList::getCreateTime, menuListDto.getStartTime(), menuListDto.getEndTime())
                 .orderByAsc(MenuList::getParentId).last(",create_time desc")
-                .page(new Page<>(menuListVO.getPageNum(), menuListVO.getPageSize()));
+                .page(new Page<>(menuListDto.getPageNum(), menuListDto.getPageSize()));
     }
 
     @Override

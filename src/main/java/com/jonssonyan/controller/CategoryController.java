@@ -33,22 +33,22 @@ public class CategoryController {
     @ApiOperation(value = "分页查询分类")
     @GetMapping("/selectPage")
     @RequiresPermissions({"category:select"})
-    public Result selectPage(CategoryDto categoryVO) {
-        return Result.success(categoryService.selectPage(categoryVO));
+    public Result selectPage(CategoryDto categoryDto) {
+        return Result.success(categoryService.selectPage(categoryDto));
     }
 
     @ApiOperation(value = "单个删除分类")
     @PostMapping("/removeById")
     @RequiresPermissions({"category:delete"})
-    public Result removeById(@RequestBody CategoryDto categoryVO) {
-        List<Category> categories = categoryService.selectList(categoryVO.getId(), false);
+    public Result removeById(@RequestBody CategoryDto categoryDto) {
+        List<Category> categories = categoryService.selectList(categoryDto.getId(), false);
         if (CollectionUtil.isNotEmpty(categories)) return Result.fail("该分类下含有子集,不可以删除");
         List<Long> longs = userService.selectChild(SecurityUtil.getCurrentUser().getId(), true);
         boolean remove = categoryService.lambdaUpdate()
                 .in(Category::getCreator, longs)
-                .eq(Category::getId, categoryVO.getId())
+                .eq(Category::getId, categoryDto.getId())
                 .remove();
-        if (remove) log.info("用户id{}删除分类{}", SecurityUtil.getCurrentUser().getId(), categoryVO.getName());
+        if (remove) log.info("用户id{}删除分类{}", SecurityUtil.getCurrentUser().getId(), categoryDto.getName());
         return Result.success();
     }
 

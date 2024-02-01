@@ -27,15 +27,15 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, Category> impl
     private CategoryDao categoryDao;
 
     @Override
-    public IPage<Category> selectPage(CategoryDto categoryVO) {
+    public IPage<Category> selectPage(CategoryDto categoryDto) {
         List<Long> longs = userService.selectChild(SecurityUtil.getCurrentUser().getId(), true);
-        return lambdaQuery().like(StrUtil.isNotBlank(categoryVO.getName()), Category::getName, categoryVO.getName())
+        return lambdaQuery().like(StrUtil.isNotBlank(categoryDto.getName()), Category::getName, categoryDto.getName())
                 .in(Category::getCreator, longs)
-                .eq(null != categoryVO.getState(), Category::getState, categoryVO.getState())
-                .eq(null != categoryVO.getParentId(), Category::getParentId, categoryVO.getParentId())
-                .between(null != categoryVO.getStartTime() && null != categoryVO.getEndTime(), Category::getCreateTime, categoryVO.getStartTime(), categoryVO.getCreateTime())
+                .eq(null != categoryDto.getState(), Category::getState, categoryDto.getState())
+                .eq(null != categoryDto.getParentId(), Category::getParentId, categoryDto.getParentId())
+                .between(null != categoryDto.getStartTime() && null != categoryDto.getEndTime(), Category::getCreateTime, categoryDto.getStartTime(), categoryDto.getCreateTime())
                 .orderByDesc(Category::getCreateTime)
-                .page(new Page<>(categoryVO.getPageNum(), categoryVO.getPageSize()));
+                .page(new Page<>(categoryDto.getPageNum(), categoryDto.getPageSize()));
     }
 
     @Override

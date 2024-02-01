@@ -54,18 +54,18 @@ public class AuthController {
 
     @ApiOperation(value = "登录")
     @PostMapping("/login")
-    public Result login(@RequestBody UserDto userVO) {
-        ValidatorUtil.validateEntity(userVO);
+    public Result login(@RequestBody UserDto userDto) {
+        ValidatorUtil.validateEntity(userDto);
         if (!SecurityUtils.getSubject().isAuthenticated()) {
-            UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(userVO.getUsername(), userVO.getPassword(), true);
+            UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(userDto.getUsername(), userDto.getPassword(), true);
             try {
                 // shiro验证用户名密码
                 SecurityUtils.getSubject().login(usernamePasswordToken);
                 // 生成token
-                String token = JwtUtil.createToken(userVO.getUsername(), false);
+                String token = JwtUtil.createToken(userDto.getUsername(), false);
                 // 将用户户名和token返回
                 HashMap<String, String> map = new HashMap<>();
-                map.put("username", userVO.getUsername());
+                map.put("username", userDto.getUsername());
                 map.put("Authorization", token);
                 map.put("role_id", SecurityUtil.getCurrentUser().getRoleId().toString());
                 return Result.success(map);

@@ -38,10 +38,10 @@ public class ProductController {
     @ApiOperation(value = "通过id查询产品")
     @GetMapping("/getById")
     @RequiresPermissions({"product:select"})
-    public Result getById(ProductDto productVO) {
+    public Result getById(ProductDto productDto) {
         List<Long> longs = userService.selectChild(SecurityUtil.getCurrentUser().getId(), true);
         Product product = productService.lambdaQuery().in(Product::getCreator, longs)
-                .eq(Product::getId, productVO.getId()).one();
+                .eq(Product::getId, productDto.getId()).one();
         Category category = categoryService.getById(product.getCategoryId());
         product.setCategory(category);
         return Result.success(product);
@@ -50,7 +50,7 @@ public class ProductController {
     @ApiOperation(value = "查询产品列表")
     @GetMapping("/selectList")
     @RequiresPermissions({"product:select"})
-    public Result selectList(ProductDto productVO) {
+    public Result selectList(ProductDto productDto) {
         List<Long> longs = userService.selectChild(SecurityUtil.getCurrentUser().getId(), true);
         List<Product> products = productService.lambdaQuery().in(Product::getCreator, longs).list();
         return Result.success(products);
@@ -59,25 +59,25 @@ public class ProductController {
     @ApiOperation(value = "查看指定分类的产品")
     @GetMapping("/selectByCategoryId")
     @RequiresPermissions({"product:select"})
-    public Result selectByCategoryId(ProductDto productVO) {
-        return Result.success(productService.selectByCategoryId(productVO));
+    public Result selectByCategoryId(ProductDto productDto) {
+        return Result.success(productService.selectByCategoryId(productDto));
     }
 
     @ApiOperation(value = "分页查询产品信息")
     @GetMapping("/selectPage")
     @RequiresPermissions({"product:select"})
-    public Result selectPage(ProductDto productVO) {
-        return Result.success(productService.selectPage(productVO));
+    public Result selectPage(ProductDto productDto) {
+        return Result.success(productService.selectPage(productDto));
     }
 
     @ApiOperation(value = "删除产品")
     @PostMapping("/removeById")
     @RequiresPermissions({"product:delete"})
-    public Result removeById(@RequestBody ProductDto productVO) {
+    public Result removeById(@RequestBody ProductDto productDto) {
         List<Long> longs = userService.selectChild(SecurityUtil.getCurrentUser().getId(), true);
         boolean remove = productService.lambdaUpdate().in(Product::getCreator, longs)
-                .eq(Product::getId, productVO.getId()).remove();
-        if (remove) log.info("用户id{}删除商品{}", SecurityUtil.getCurrentUser().getId(), productVO.getName());
+                .eq(Product::getId, productDto.getId()).remove();
+        if (remove) log.info("用户id{}删除商品{}", SecurityUtil.getCurrentUser().getId(), productDto.getName());
         return Result.success();
     }
 

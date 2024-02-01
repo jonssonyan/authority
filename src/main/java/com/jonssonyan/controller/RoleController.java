@@ -41,8 +41,8 @@ public class RoleController {
     @PostMapping("/removeById")
     @RequiresRoles({"admin"})
     @RequiresPermissions({"role:delete"})
-    public Result removeById(@RequestBody RoleDto roleVO) {
-        roleService.removeById(roleVO.getId());
+    public Result removeById(@RequestBody RoleDto roleDto) {
+        roleService.removeById(roleDto.getId());
         return Result.success();
     }
 
@@ -58,15 +58,15 @@ public class RoleController {
     @GetMapping("/selectPage")
     @RequiresRoles({"admin"})
     @RequiresPermissions({"role:select"})
-    public Result selectPage(RoleDto roleVO) {
-        return Result.success(roleService.selectPage(roleVO));
+    public Result selectPage(RoleDto roleDto) {
+        return Result.success(roleService.selectPage(roleDto));
     }
 
     @ApiOperation(value = "查询角色列表")
     @GetMapping("/select")
     @RequiresRoles({"admin"})
     @RequiresPermissions({"role:select"})
-    public Result select(RoleDto roleVO) {
+    public Result select(RoleDto roleDto) {
         return Result.success(roleService.lambdaQuery().list());
     }
 }

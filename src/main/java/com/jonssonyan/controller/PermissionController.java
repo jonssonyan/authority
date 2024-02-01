@@ -26,15 +26,15 @@ public class PermissionController {
     @GetMapping("/getById")
     @RequiresRoles({"admin"})
     @RequiresPermissions({"permission:select"})
-    public Result getById(PermissionDto permissionVO) {
-        return Result.success(permissionService.getById(permissionVO.getId()));
+    public Result getById(PermissionDto permissionDto) {
+        return Result.success(permissionService.getById(permissionDto.getId()));
     }
 
     @ApiOperation(value = "查询权限列表")
     @GetMapping("/select")
     @RequiresRoles({"admin"})
     @RequiresPermissions({"permission:select"})
-    public Result select(PermissionDto permissionVO) {
+    public Result select(PermissionDto permissionDto) {
         return Result.success(permissionService.lambdaQuery().list());
     }
 }

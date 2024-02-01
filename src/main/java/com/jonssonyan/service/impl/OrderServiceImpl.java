@@ -26,17 +26,17 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, Order> implements Or
     private UserService userService;
 
     @Override
-    public IPage<Order> selectPage(OrderDto orderVO) {
+    public IPage<Order> selectPage(OrderDto orderDto) {
         List<Long> longs = userService.selectChild(SecurityUtil.getCurrentUser().getId(), true);
         IPage<Order> orderIPage = lambdaQuery()
                 .in(Order::getCreator, longs)
-                .like(!StrUtil.isBlank(orderVO.getSubject()), Order::getSubject, orderVO.getSubject())
-                .like(!StrUtil.isBlank(orderVO.getOutTradeNo()), Order::getOutTradeNo, orderVO.getOutTradeNo())
-                .eq(null != orderVO.getState(), Order::getState, orderVO.getState())
-                .between(null != orderVO.getStartTime() && null != orderVO.getEndTime(), Order::getCreateTime, orderVO.getStartTime(), orderVO.getEndTime())
+                .like(!StrUtil.isBlank(orderDto.getSubject()), Order::getSubject, orderDto.getSubject())
+                .like(!StrUtil.isBlank(orderDto.getOutTradeNo()), Order::getOutTradeNo, orderDto.getOutTradeNo())
+                .eq(null != orderDto.getState(), Order::getState, orderDto.getState())
+                .between(null != orderDto.getStartTime() && null != orderDto.getEndTime(), Order::getCreateTime, orderDto.getStartTime(), orderDto.getEndTime())
                 .eq(Order::getCreator, SecurityUtil.getCurrentUser().getId())
                 .orderByDesc(Order::getCreateTime)
-                .page(new Page<>(orderVO.getPageNum(), orderVO.getPageSize()));
+                .page(new Page<>(orderDto.getPageNum(), orderDto.getPageSize()));
         orderIPage.getRecords().forEach(order -> {
             order.setProduct(productDao.selectById(order.getProductId()));
         });
