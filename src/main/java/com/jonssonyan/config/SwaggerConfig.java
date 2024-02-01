@@ -12,7 +12,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * swagger配置
+ * Swagger2配置
  * 项目运行后访问：http://localhost:port/swagger-ui.html
  */
 @Configuration
@@ -52,7 +52,7 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("权限管理系统 API") // 文档页标题
                 .contact(new Contact("jonssonyan", "https://jonssonyan.com", "yz808@outlook.com")) // 联系人信息
-                .version("1.0") // 文档版本号
+                .version("v0.0.1") // 文档版本号
                 .description("API 描述") // 描述
                 .build();
     }

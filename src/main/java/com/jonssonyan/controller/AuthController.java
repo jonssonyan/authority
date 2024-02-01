@@ -1,6 +1,5 @@
 package com.jonssonyan.controller;
 
-import cn.hutool.core.util.StrUtil;
 import com.jonssonyan.entity.User;
 import com.jonssonyan.entity.vo.Result;
 import com.jonssonyan.entity.vo.UserVo;
@@ -25,18 +24,16 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 
 @RestController
 @Slf4j
 @Api(tags = "登录和注册")
-public class DefaultController {
+public class AuthController {
     @Autowired
     private UserService userService;
 
