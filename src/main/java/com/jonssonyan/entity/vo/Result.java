@@ -13,7 +13,7 @@ public class Result implements Serializable {
 
     public static Result success(Object data) {
         Result result = new Result();
-        result.setCode(1);
+        result.setCode(20000);
         result.setMsg("ok");
         result.setData(data);
         return result;
@@ -25,14 +25,14 @@ public class Result implements Serializable {
 
     public static Result fail(String msg) {
         Result result = new Result();
-        result.setCode(0);
+        result.setCode(50000);
         result.setMsg(msg);
         return result;
     }
 
     public static Result fail(Integer code, String msg, Object object) {
         Result result = new Result();
-        result.setCode(0);
+        result.setCode(50000);
         result.setMsg(msg);
         result.setData(object);
         return result;
