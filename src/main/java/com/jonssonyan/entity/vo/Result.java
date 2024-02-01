@@ -30,7 +30,7 @@ public class Result implements Serializable {
         return result;
     }
 
-    public static Result fail(Integer code, String msg, Object object) {
+    public static Result fail(String msg, Object object) {
         Result result = new Result();
         result.setCode(50000);
         result.setMsg(msg);
