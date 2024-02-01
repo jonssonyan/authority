@@ -2,23 +2,21 @@ package com.jonssonyan.entity.dto;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 @Data
-public class BaseDto {
-    @NotNull
+public class BaseDto implements Serializable {
+    private static final long serialVersionUID = -6669951296126864566L;
+    @Max(10)
+    @Min(1)
     private Long pageSize = 10L;
-    @NotNull
+    @Min(1)
     private Long pageNum = 1L;
-    @Past
     private Date startTime;
-    @Past
     private Date endTime;
-
     private List<Long> ids;
-
-    private Long id;
 }

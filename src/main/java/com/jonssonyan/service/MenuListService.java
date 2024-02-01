@@ -3,7 +3,7 @@ package com.jonssonyan.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.jonssonyan.entity.MenuList;
-import com.jonssonyan.entity.vo.MenuListVo;
+import com.jonssonyan.entity.dto.MenuListDto;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public interface MenuListService extends IService<MenuList> {
      * @param menuListVO
      * @return
      */
-    IPage<MenuList> selectPage(MenuListVo menuListVO);
+    IPage<MenuList> selectPage(MenuListDto menuListVO);
 
     /**
      * 根据角色返回菜单,树状结构

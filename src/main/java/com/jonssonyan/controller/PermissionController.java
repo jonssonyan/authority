@@ -1,6 +1,6 @@
 package com.jonssonyan.controller;
 
-import com.jonssonyan.entity.vo.PermissionVo;
+import com.jonssonyan.entity.dto.PermissionDto;
 import com.jonssonyan.entity.vo.Result;
 import com.jonssonyan.service.PermissionService;
 import io.swagger.annotations.Api;
@@ -10,8 +10,6 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,7 +26,7 @@ public class PermissionController {
     @GetMapping("/getById")
     @RequiresRoles({"admin"})
     @RequiresPermissions({"permission:select"})
-    public Result getById(PermissionVo permissionVO) {
+    public Result getById(PermissionDto permissionVO) {
         return Result.success(permissionService.getById(permissionVO.getId()));
     }
 
@@ -36,7 +34,7 @@ public class PermissionController {
     @GetMapping("/select")
     @RequiresRoles({"admin"})
     @RequiresPermissions({"permission:select"})
-    public Result select(PermissionVo permissionVO) {
+    public Result select(PermissionDto permissionVO) {
         return Result.success(permissionService.lambdaQuery().list());
     }
 }

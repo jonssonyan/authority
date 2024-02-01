@@ -2,7 +2,7 @@ package com.jonssonyan.controller;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.jonssonyan.entity.Category;
-import com.jonssonyan.entity.vo.CategoryVo;
+import com.jonssonyan.entity.dto.CategoryDto;
 import com.jonssonyan.entity.vo.Result;
 import com.jonssonyan.security.util.SecurityUtil;
 import com.jonssonyan.service.CategoryService;
@@ -33,14 +33,14 @@ public class CategoryController {
     @ApiOperation(value = "分页查询分类")
     @GetMapping("/selectPage")
     @RequiresPermissions({"category:select"})
-    public Result selectPage(CategoryVo categoryVO) {
+    public Result selectPage(CategoryDto categoryVO) {
         return Result.success(categoryService.selectPage(categoryVO));
     }
 
     @ApiOperation(value = "单个删除分类")
     @PostMapping("/removeById")
     @RequiresPermissions({"category:delete"})
-    public Result removeById(@RequestBody CategoryVo categoryVO) {
+    public Result removeById(@RequestBody CategoryDto categoryVO) {
         List<Category> categories = categoryService.selectList(categoryVO.getId(), false);
         if (CollectionUtil.isNotEmpty(categories)) return Result.fail("该分类下含有子集,不可以删除");
         List<Long> longs = userService.selectChild(SecurityUtil.getCurrentUser().getId(), true);

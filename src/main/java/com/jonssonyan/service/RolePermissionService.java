@@ -3,7 +3,7 @@ package com.jonssonyan.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.jonssonyan.entity.RolePermission;
-import com.jonssonyan.entity.vo.RolePermissionVo;
+import com.jonssonyan.entity.dto.RolePermissionDto;
 
 public interface RolePermissionService extends IService<RolePermission> {
     /**
@@ -12,5 +12,5 @@ public interface RolePermissionService extends IService<RolePermission> {
      * @param rolePermissionVO
      * @return
      */
-    IPage<RolePermission> selectPage(RolePermissionVo rolePermissionVO);
+    IPage<RolePermission> selectPage(RolePermissionDto rolePermissionVO);
 }

@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jonssonyan.dao.CategoryDao;
 import com.jonssonyan.entity.Category;
-import com.jonssonyan.entity.vo.CategoryVo;
+import com.jonssonyan.entity.dto.CategoryDto;
 import com.jonssonyan.security.util.SecurityUtil;
 import com.jonssonyan.service.CategoryService;
 import com.jonssonyan.service.UserService;
@@ -27,7 +27,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, Category> impl
     private CategoryDao categoryDao;
 
     @Override
-    public IPage<Category> selectPage(CategoryVo categoryVO) {
+    public IPage<Category> selectPage(CategoryDto categoryVO) {
         List<Long> longs = userService.selectChild(SecurityUtil.getCurrentUser().getId(), true);
         return lambdaQuery().like(StrUtil.isNotBlank(categoryVO.getName()), Category::getName, categoryVO.getName())
                 .in(Category::getCreator, longs)

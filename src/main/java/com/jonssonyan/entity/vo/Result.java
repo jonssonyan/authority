@@ -2,8 +2,11 @@ package com.jonssonyan.entity.vo;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class Result {
+public class Result implements Serializable {
+    private static final long serialVersionUID = 5208655401792192682L;
     private Integer code;
     private String msg;
     private Object data;
@@ -11,7 +14,7 @@ public class Result {
     public static Result success(Object data) {
         Result result = new Result();
         result.setCode(1);
-        result.setMsg("成功");
+        result.setMsg("ok");
         result.setData(data);
         return result;
     }

@@ -3,7 +3,7 @@ package com.jonssonyan.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.jonssonyan.entity.Category;
-import com.jonssonyan.entity.vo.CategoryVo;
+import com.jonssonyan.entity.dto.CategoryDto;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public interface CategoryService extends IService<Category> {
      * @param categoryVO
      * @return
      */
-    IPage<Category> selectPage(CategoryVo categoryVO);
+    IPage<Category> selectPage(CategoryDto categoryVO);
 
     /**
      * 查询子集,返回非嵌套数据结构

@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jonssonyan.dao.OrderDao;
 import com.jonssonyan.dao.ProductDao;
 import com.jonssonyan.entity.Order;
-import com.jonssonyan.entity.vo.OrderVo;
+import com.jonssonyan.entity.dto.OrderDto;
 import com.jonssonyan.security.util.SecurityUtil;
 import com.jonssonyan.service.OrderService;
 import com.jonssonyan.service.UserService;
@@ -26,7 +26,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, Order> implements Or
     private UserService userService;
 
     @Override
-    public IPage<Order> selectPage(OrderVo orderVO) {
+    public IPage<Order> selectPage(OrderDto orderVO) {
         List<Long> longs = userService.selectChild(SecurityUtil.getCurrentUser().getId(), true);
         IPage<Order> orderIPage = lambdaQuery()
                 .in(Order::getCreator, longs)

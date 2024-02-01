@@ -4,7 +4,7 @@ import com.jonssonyan.entity.Permission;
 import com.jonssonyan.entity.Role;
 import com.jonssonyan.entity.RolePermission;
 import com.jonssonyan.entity.vo.Result;
-import com.jonssonyan.entity.vo.RolePermissionVo;
+import com.jonssonyan.entity.dto.RolePermissionDto;
 import com.jonssonyan.service.PermissionService;
 import com.jonssonyan.service.RolePermissionService;
 import com.jonssonyan.service.RoleService;
@@ -51,7 +51,7 @@ public class RolePermissionController {
     @PostMapping("/removeById")
     @RequiresPermissions({"rolePermission:delete"})
     @RequiresRoles({"admin"})
-    public Result removeById(@RequestBody RolePermissionVo rolePermissionVO) {
+    public Result removeById(@RequestBody RolePermissionDto rolePermissionVO) {
         rolePermissionService.removeById(rolePermissionVO.getId());
         return Result.success();
     }
@@ -60,7 +60,7 @@ public class RolePermissionController {
     @GetMapping("/selectPage")
     @RequiresRoles({"admin"})
     @RequiresPermissions({"rolePermission:select"})
-    public Result selectPage(RolePermissionVo rolePermissionVO) {
+    public Result selectPage(RolePermissionDto rolePermissionVO) {
         return Result.success(rolePermissionService.selectPage(rolePermissionVO));
     }
 
@@ -68,7 +68,7 @@ public class RolePermissionController {
     @GetMapping("/getById")
     @RequiresRoles({"admin"})
     @RequiresPermissions({"rolePermission:select"})
-    public Result getById(RolePermissionVo rolePermissionVO) {
+    public Result getById(RolePermissionDto rolePermissionVO) {
         RolePermission rolePermission = rolePermissionService.getById(rolePermissionVO.getId());
         if (rolePermission != null) {
             Role role = roleService.getById(rolePermission.getRoleId());

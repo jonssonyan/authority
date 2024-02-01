@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jonssonyan.dao.UserDao;
 import com.jonssonyan.entity.User;
-import com.jonssonyan.entity.vo.UserVo;
+import com.jonssonyan.entity.dto.UserDto;
 import com.jonssonyan.security.util.SecurityUtil;
 import com.jonssonyan.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     @Autowired
     private UserDao userDao;
 
-    public IPage<User> selectPage(UserVo userVO) {
+    public IPage<User> selectPage(UserDto userVO) {
         List<Long> longs = selectChild(SecurityUtil.getCurrentUser().getId(), true);
         return lambdaQuery()
                 .in(User::getId, longs)

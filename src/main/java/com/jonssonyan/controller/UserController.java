@@ -2,7 +2,7 @@ package com.jonssonyan.controller;
 
 import com.jonssonyan.entity.User;
 import com.jonssonyan.entity.vo.Result;
-import com.jonssonyan.entity.vo.UserVo;
+import com.jonssonyan.entity.dto.UserDto;
 import com.jonssonyan.security.constant.SystemConstant;
 import com.jonssonyan.security.util.SecurityUtil;
 import com.jonssonyan.service.UserService;
@@ -33,7 +33,7 @@ public class UserController {
     @GetMapping("/selectPage")
     @RequiresRoles({"admin"})
     @RequiresPermissions({"user:select"})
-    public Result selectPage(UserVo userVO) {
+    public Result selectPage(UserDto userVO) {
         return Result.success(userService.selectPage(userVO));
     }
 
@@ -61,7 +61,7 @@ public class UserController {
     @PostMapping("/removeById")
     @RequiresRoles({"admin"})
     @RequiresPermissions({"user:delete"})
-    public Result removeById(@RequestBody UserVo userVO) {
+    public Result removeById(@RequestBody UserDto userVO) {
         userService.removeById(userVO.getId());
         return Result.success();
     }
@@ -69,7 +69,7 @@ public class UserController {
     @ApiOperation(value = "通过id查询用户")
     @GetMapping("/getById")
     @RequiresPermissions({"user:select"})
-    public Result selectById(UserVo userVO) {
+    public Result selectById(UserDto userVO) {
         return Result.success(userService.getById(userVO.getId()));
     }
 

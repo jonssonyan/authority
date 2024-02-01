@@ -11,7 +11,7 @@ import com.jonssonyan.dao.RoleMenuListDao;
 import com.jonssonyan.entity.MenuList;
 import com.jonssonyan.entity.Role;
 import com.jonssonyan.entity.RoleMenuList;
-import com.jonssonyan.entity.vo.MenuListVo;
+import com.jonssonyan.entity.dto.MenuListDto;
 import com.jonssonyan.security.util.SecurityUtil;
 import com.jonssonyan.service.MenuListService;
 import com.jonssonyan.service.RoleService;
@@ -32,7 +32,7 @@ public class MenuListServiceImpl extends ServiceImpl<MenuListDao, MenuList> impl
     private RoleMenuListDao roleMenuListDao;
 
     @Override
-    public IPage<MenuList> selectPage(MenuListVo menuListVO) {
+    public IPage<MenuList> selectPage(MenuListDto menuListVO) {
         return lambdaQuery()
                 .like(StrUtil.isNotBlank(menuListVO.getName()), MenuList::getName, menuListVO.getName())
                 .eq(null != menuListVO.getState(), MenuList::getState, menuListVO.getState())

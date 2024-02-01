@@ -3,7 +3,7 @@ package com.jonssonyan.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.jonssonyan.entity.Order;
-import com.jonssonyan.entity.vo.OrderVo;
+import com.jonssonyan.entity.dto.OrderDto;
 
 public interface OrderService extends IService<Order> {
     /**
@@ -12,5 +12,5 @@ public interface OrderService extends IService<Order> {
      * @param orderVO
      * @return
      */
-    IPage<Order> selectPage(OrderVo orderVO);
+    IPage<Order> selectPage(OrderDto orderVO);
 }

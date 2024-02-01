@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jonssonyan.dao.RoleDao;
 import com.jonssonyan.entity.Role;
-import com.jonssonyan.entity.vo.RoleVo;
+import com.jonssonyan.entity.dto.RoleDto;
 import com.jonssonyan.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +45,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, Role> implements RoleS
     }
 
     @Override
-    public IPage<Role> selectPage(RoleVo roleVO) {
+    public IPage<Role> selectPage(RoleDto roleVO) {
         return lambdaQuery()
                 .like(StrUtil.isNotBlank(roleVO.getName()), Role::getName, roleVO.getName())
                 .page(new Page<>(roleVO.getPageNum(), roleVO.getPageSize()));

@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jonssonyan.dao.RolePermissionDao;
 import com.jonssonyan.entity.RolePermission;
-import com.jonssonyan.entity.vo.RolePermissionVo;
+import com.jonssonyan.entity.dto.RolePermissionDto;
 import com.jonssonyan.service.PermissionService;
 import com.jonssonyan.service.RolePermissionService;
 import com.jonssonyan.service.RoleService;
@@ -22,7 +22,7 @@ public class RolePermissionServiceImpl extends ServiceImpl<RolePermissionDao, Ro
     private PermissionService permissionService;
 
     @Override
-    public IPage<RolePermission> selectPage(RolePermissionVo rolePermissionVO) {
+    public IPage<RolePermission> selectPage(RolePermissionDto rolePermissionVO) {
         IPage<RolePermission> rolePermissionIPage = lambdaQuery()
                 .orderByAsc(RolePermission::getRoleId)
                 .page(new Page<>(rolePermissionVO.getPageNum(), rolePermissionVO.getPageSize()));

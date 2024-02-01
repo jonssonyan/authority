@@ -1,5 +1,6 @@
-package com.jonssonyan.entity.vo;
+package com.jonssonyan.entity.dto;
 
+import com.jonssonyan.entity.dto.BaseDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -8,7 +9,7 @@ import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class RolePermissionVo extends BaseVo implements Serializable {
+public class RolePermissionDto extends BaseDto implements Serializable {
     private static final long serialVersionUID = -4528470984796447897L;
     private Long id;
     private Long roleId;

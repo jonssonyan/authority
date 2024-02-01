@@ -3,7 +3,7 @@ package com.jonssonyan.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.jonssonyan.entity.Role;
-import com.jonssonyan.entity.vo.RoleVo;
+import com.jonssonyan.entity.dto.RoleDto;
 
 import java.util.List;
 import java.util.Set;
@@ -13,5 +13,5 @@ public interface RoleService extends IService<Role> {
 
     List<Role> selectRoles(Long id, Boolean contain);
 
-    IPage<Role> selectPage(RoleVo roleVO);
+    IPage<Role> selectPage(RoleDto roleVO);
 }

@@ -2,7 +2,7 @@ package com.jonssonyan.controller;
 
 import com.jonssonyan.entity.Role;
 import com.jonssonyan.entity.vo.Result;
-import com.jonssonyan.entity.vo.RoleVo;
+import com.jonssonyan.entity.dto.RoleDto;
 import com.jonssonyan.service.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -41,7 +41,7 @@ public class RoleController {
     @PostMapping("/removeById")
     @RequiresRoles({"admin"})
     @RequiresPermissions({"role:delete"})
-    public Result removeById(@RequestBody RoleVo roleVO) {
+    public Result removeById(@RequestBody RoleDto roleVO) {
         roleService.removeById(roleVO.getId());
         return Result.success();
     }
@@ -58,7 +58,7 @@ public class RoleController {
     @GetMapping("/selectPage")
     @RequiresRoles({"admin"})
     @RequiresPermissions({"role:select"})
-    public Result selectPage(RoleVo roleVO) {
+    public Result selectPage(RoleDto roleVO) {
         return Result.success(roleService.selectPage(roleVO));
     }
 
@@ -66,7 +66,7 @@ public class RoleController {
     @GetMapping("/select")
     @RequiresRoles({"admin"})
     @RequiresPermissions({"role:select"})
-    public Result select(RoleVo roleVO) {
+    public Result select(RoleDto roleVO) {
         return Result.success(roleService.lambdaQuery().list());
     }
 }

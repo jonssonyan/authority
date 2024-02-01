@@ -2,7 +2,7 @@ package com.jonssonyan.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.jonssonyan.entity.Order;
-import com.jonssonyan.entity.vo.OrderVo;
+import com.jonssonyan.entity.dto.OrderDto;
 import com.jonssonyan.entity.vo.Result;
 import com.jonssonyan.security.util.SecurityUtil;
 import com.jonssonyan.service.OrderService;
@@ -36,14 +36,14 @@ public class OrderController {
     @ApiOperation(value = "分页查询订单")
     @GetMapping("/selectPage")
     @RequiresPermissions({"order:select"})
-    public Result selectPage(OrderVo orderVO) {
+    public Result selectPage(OrderDto orderVO) {
         return Result.success(orderService.selectPage(orderVO));
     }
 
     @ApiOperation(value = "根据id查询订单")
     @GetMapping("/getById")
     @RequiresPermissions({"order:select"})
-    public Result getById(OrderVo orderVO) {
+    public Result getById(OrderDto orderVO) {
         Order order = orderService.lambdaQuery().eq(Order::getCreator, SecurityUtil.getCurrentUser().getId())
                 .eq(Order::getId, orderVO.getId()).one();
         if (order != null) order.setProduct(productService.getById(order.getProductId()));
@@ -53,7 +53,7 @@ public class OrderController {
     @ApiOperation(value = "删除订单")
     @PostMapping("/removeById")
     @RequiresPermissions({"order:delete"})
-    public Result removeById(@RequestBody OrderVo orderVO) {
+    public Result removeById(@RequestBody OrderDto orderVO) {
         List<Long> longs = userService.selectChild(SecurityUtil.getCurrentUser().getId(), true);
         boolean remove = orderService.lambdaUpdate().in(Order::getCreator, longs)
                 .eq(Order::getId, orderVO.getId()).remove();

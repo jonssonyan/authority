@@ -3,12 +3,12 @@ package com.jonssonyan.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.jonssonyan.entity.User;
-import com.jonssonyan.entity.vo.UserVo;
+import com.jonssonyan.entity.dto.UserDto;
 
 import java.util.List;
 
 public interface UserService extends IService<User> {
-    IPage<User> selectPage(UserVo userVO);
+    IPage<User> selectPage(UserDto userVO);
 
     User selectByUsername(String username);
 

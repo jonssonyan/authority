@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jonssonyan.dao.ProductDao;
 import com.jonssonyan.entity.Category;
 import com.jonssonyan.entity.Product;
-import com.jonssonyan.entity.vo.ProductVo;
+import com.jonssonyan.entity.dto.ProductDto;
 import com.jonssonyan.security.util.SecurityUtil;
 import com.jonssonyan.service.CategoryService;
 import com.jonssonyan.service.ProductService;
@@ -27,7 +27,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, Product> impleme
     private UserService userService;
 
     @Override
-    public List<Product> selectByCategoryId(ProductVo productVO) {
+    public List<Product> selectByCategoryId(ProductDto productVO) {
         List<Long> longs = userService.selectChild(SecurityUtil.getCurrentUser().getId(), true);
         return lambdaQuery()
                 .eq(Product::getCategoryId, productVO.getCategoryId())
@@ -37,7 +37,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, Product> impleme
     }
 
     @Override
-    public IPage<Product> selectPage(ProductVo productVO) {
+    public IPage<Product> selectPage(ProductDto productVO) {
         List<Long> longs = userService.selectChild(SecurityUtil.getCurrentUser().getId(), true);
         IPage<Product> productIPage = lambdaQuery().like(!StrUtil.isBlank(productVO.getName()), Product::getName, productVO.getName())
                 .eq(null != productVO.getState(), Product::getState, productVO.getState())

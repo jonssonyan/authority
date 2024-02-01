@@ -2,7 +2,7 @@ package com.jonssonyan.controller;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.jonssonyan.entity.MenuList;
-import com.jonssonyan.entity.vo.MenuListVo;
+import com.jonssonyan.entity.dto.MenuListDto;
 import com.jonssonyan.entity.vo.Result;
 import com.jonssonyan.security.util.SecurityUtil;
 import com.jonssonyan.service.MenuListService;
@@ -39,7 +39,7 @@ public class MenuListController {
     @GetMapping("/selectPage")
     @RequiresRoles({"admin"})
     @RequiresPermissions({"menuList:select"})
-    public Result selectPage(MenuListVo MenuListVO) {
+    public Result selectPage(MenuListDto MenuListVO) {
         return Result.success(menuListService.selectPage(MenuListVO));
     }
 
@@ -47,7 +47,7 @@ public class MenuListController {
     @PostMapping("/removeById")
     @RequiresRoles({"admin"})
     @RequiresPermissions({"menuList:delete"})
-    public Result removeById(@RequestBody MenuListVo MenuListVO) {
+    public Result removeById(@RequestBody MenuListDto MenuListVO) {
         menuListService.removeById(MenuListVO.getId());
         return Result.success();
     }

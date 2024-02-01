@@ -4,7 +4,7 @@ package com.jonssonyan.controller;
 import cn.hutool.core.util.StrUtil;
 import com.jonssonyan.entity.Category;
 import com.jonssonyan.entity.Product;
-import com.jonssonyan.entity.vo.ProductVo;
+import com.jonssonyan.entity.dto.ProductDto;
 import com.jonssonyan.entity.vo.Result;
 import com.jonssonyan.security.util.SecurityUtil;
 import com.jonssonyan.service.CategoryService;
@@ -12,7 +12,6 @@ import com.jonssonyan.service.ProductService;
 import com.jonssonyan.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import jdk.nashorn.internal.objects.annotations.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +38,7 @@ public class ProductController {
     @ApiOperation(value = "通过id查询产品")
     @GetMapping("/getById")
     @RequiresPermissions({"product:select"})
-    public Result getById(ProductVo productVO) {
+    public Result getById(ProductDto productVO) {
         List<Long> longs = userService.selectChild(SecurityUtil.getCurrentUser().getId(), true);
         Product product = productService.lambdaQuery().in(Product::getCreator, longs)
                 .eq(Product::getId, productVO.getId()).one();
@@ -51,7 +50,7 @@ public class ProductController {
     @ApiOperation(value = "查询产品列表")
     @GetMapping("/selectList")
     @RequiresPermissions({"product:select"})
-    public Result selectList(ProductVo productVO) {
+    public Result selectList(ProductDto productVO) {
         List<Long> longs = userService.selectChild(SecurityUtil.getCurrentUser().getId(), true);
         List<Product> products = productService.lambdaQuery().in(Product::getCreator, longs).list();
         return Result.success(products);
@@ -60,21 +59,21 @@ public class ProductController {
     @ApiOperation(value = "查看指定分类的产品")
     @GetMapping("/selectByCategoryId")
     @RequiresPermissions({"product:select"})
-    public Result selectByCategoryId(ProductVo productVO) {
+    public Result selectByCategoryId(ProductDto productVO) {
         return Result.success(productService.selectByCategoryId(productVO));
     }
 
     @ApiOperation(value = "分页查询产品信息")
     @GetMapping("/selectPage")
     @RequiresPermissions({"product:select"})
-    public Result selectPage(ProductVo productVO) {
+    public Result selectPage(ProductDto productVO) {
         return Result.success(productService.selectPage(productVO));
     }
 
     @ApiOperation(value = "删除产品")
     @PostMapping("/removeById")
     @RequiresPermissions({"product:delete"})
-    public Result removeById(@RequestBody ProductVo productVO) {
+    public Result removeById(@RequestBody ProductDto productVO) {
         List<Long> longs = userService.selectChild(SecurityUtil.getCurrentUser().getId(), true);
         boolean remove = productService.lambdaUpdate().in(Product::getCreator, longs)
                 .eq(Product::getId, productVO.getId()).remove();

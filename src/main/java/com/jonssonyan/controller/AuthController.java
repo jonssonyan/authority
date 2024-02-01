@@ -2,7 +2,7 @@ package com.jonssonyan.controller;
 
 import com.jonssonyan.entity.User;
 import com.jonssonyan.entity.vo.Result;
-import com.jonssonyan.entity.vo.UserVo;
+import com.jonssonyan.entity.dto.UserDto;
 import com.jonssonyan.security.constant.SystemConstant;
 import com.jonssonyan.security.util.JwtUtil;
 import com.jonssonyan.security.util.SecurityUtil;
@@ -54,7 +54,7 @@ public class AuthController {
 
     @ApiOperation(value = "登录")
     @PostMapping("/login")
-    public Result login(@RequestBody UserVo userVO) {
+    public Result login(@RequestBody UserDto userVO) {
         ValidatorUtil.validateEntity(userVO);
         if (!SecurityUtils.getSubject().isAuthenticated()) {
             UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(userVO.getUsername(), userVO.getPassword(), true);

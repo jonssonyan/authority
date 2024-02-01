@@ -1,5 +1,6 @@
-package com.jonssonyan.entity.vo;
+package com.jonssonyan.entity.dto;
 
+import com.jonssonyan.entity.dto.BaseDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -9,7 +10,7 @@ import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class ProductVo extends BaseVo implements Serializable {
+public class ProductDto extends BaseDto implements Serializable {
     private static final long serialVersionUID = -4492232772022212494L;
     private Long id;
     private Long categoryId;
