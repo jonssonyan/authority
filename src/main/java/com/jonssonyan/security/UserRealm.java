@@ -19,8 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.DisabledAccountException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
-import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -59,8 +59,8 @@ public class UserRealm extends AuthorizingRealm {
             return null;
         }
         authorizationInfo.addRoles(roles.stream().map(Role::getName).collect(Collectors.toList()));
-        List<RolePermission> rolePermissions = rolePermissionService.lambdaQuery().eq(RolePermission::getRoleId, SecurityUtil.getCurrentUser().getRoleId())
-                .eq(RolePermission::getState, 1).list();
+        List<RolePermission> rolePermissions =
+                rolePermissionService.lambdaQuery().eq(RolePermission::getRoleId, SecurityUtil.getCurrentUser().getRoleId()).eq(RolePermission::getState, 1).list();
         if (CollectionUtil.isNotEmpty(rolePermissions)) {
             Set<Permission> set = new HashSet<>();
             for (RolePermission rolePermission : rolePermissions) {
@@ -83,10 +83,10 @@ public class UserRealm extends AuthorizingRealm {
         User user = userService.selectByUsername(usernamePasswordToken.getUsername());
         // 判断用户
         if (user == null) {
-            throw new UnknownAccountException("用户不存在!");
+            throw new IncorrectCredentialsException("登录密码错误");
         }
         if (user.getState() == 0) {
-            throw new DisabledAccountException("账号已被禁用!");
+            throw new DisabledAccountException("用户已被禁用");
         }
 
         // 认证成功之后设置角色关联的菜单

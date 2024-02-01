@@ -1,8 +1,8 @@
 package com.jonssonyan.controller;
 
 import com.jonssonyan.entity.User;
-import com.jonssonyan.entity.vo.Result;
 import com.jonssonyan.entity.dto.UserDto;
+import com.jonssonyan.entity.vo.Result;
 import com.jonssonyan.security.constant.SystemConstant;
 import com.jonssonyan.security.util.JwtUtil;
 import com.jonssonyan.security.util.SecurityUtil;
@@ -13,10 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.DisabledAccountException;
-import org.apache.shiro.authc.ExcessiveAttemptsException;
-import org.apache.shiro.authc.ExpiredCredentialsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.UnauthorizedException;
@@ -69,23 +66,17 @@ public class AuthController {
                 map.put("Authorization", token);
                 map.put("role_id", SecurityUtil.getCurrentUser().getRoleId().toString());
                 return Result.success(map);
-            } catch (IncorrectCredentialsException e) {
-                return Result.fail("登录密码错误");
-            } catch (ExcessiveAttemptsException e) {
-                return Result.fail("登录失败次数过多");
-            } catch (LockedAccountException e) {
-                return Result.fail("帐号已被锁定");
-            } catch (DisabledAccountException e) {
-                return Result.fail("帐号已被禁用");
-            } catch (ExpiredCredentialsException e) {
-                return Result.fail("帐号已过期");
             } catch (UnknownAccountException e) {
                 return Result.fail("帐号不存在");
+            } catch (IncorrectCredentialsException e) {
+                return Result.fail("登录密码错误");
+            } catch (DisabledAccountException e) {
+                return Result.fail("用户已被禁用");
             } catch (UnauthorizedException e) {
-                return Result.fail("您没有得到相应的授权");
+                return Result.fail("没有权限");
             } catch (Exception e) {
-                e.printStackTrace();
-                return Result.fail("登录失败！！！");
+                log.error("登录失败 msg:{},err:{}", e.getMessage(), e);
+                return Result.fail("登录失败");
             }
         }
         return Result.fail("你已经登录了");

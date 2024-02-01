@@ -17,7 +17,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.DisabledAccountException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -55,9 +58,8 @@ public class JWTRealm extends AuthorizingRealm {
             return null;
         }
         authorizationInfo.addRoles(roles.stream().map(Role::getName).collect(Collectors.toList()));
-        List<RolePermission> rolePermissions = rolePermissionService.lambdaQuery()
-                .eq(RolePermission::getState, 1)
-                .eq(RolePermission::getRoleId, SecurityUtil.getCurrentUser().getRoleId()).list();
+        List<RolePermission> rolePermissions = rolePermissionService.lambdaQuery().eq(RolePermission::getState, 1).eq(RolePermission::getRoleId,
+                SecurityUtil.getCurrentUser().getRoleId()).list();
         Set<Permission> set = new HashSet<>();
         for (RolePermission rolePermission : rolePermissions) {
             List<Permission> permissions = permissionService.lambdaQuery().eq(Permission::getId, rolePermission.getPermissionId()).list();
@@ -74,15 +76,15 @@ public class JWTRealm extends AuthorizingRealm {
         // 解密获得username，用于和数据库进行对比
         String username = JwtUtil.getUsernameByToken(token);
         if (StrUtil.isBlank(username)) {
-            throw new AuthenticationException("Token认证失败!");
+            throw new UnknownAccountException("帐号不存在");
         }
         User user = userService.selectByUsername(username);
         // 判断用户
         if (user == null) {
-            throw new AuthenticationException("用户不存在!");
+            throw new IncorrectCredentialsException("登录密码错误");
         }
         if (user.getState() == 0) {
-            throw new AuthenticationException("账号已被禁用!");
+            throw new DisabledAccountException("账号已被禁用");
         }
         return new SimpleAuthenticationInfo(user, token, getName());
     }

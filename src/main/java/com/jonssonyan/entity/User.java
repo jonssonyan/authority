@@ -43,7 +43,7 @@ public class User extends BaseEntity implements Serializable {
     @ApiModelProperty("联系电话")
     private String phone;
     @ApiModelProperty("状态 0/禁止 1/正常")
-    private Integer state; // 状态 0/禁止 1/正常
+    private Integer state;
 
     // 用户的菜单列表，不同用户通过权限控制拥有不同的菜单
     @TableField(exist = false)
