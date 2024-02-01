@@ -179,7 +179,7 @@ public class ShiroConfig {
         SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
         simpleCookie.setMaxAge(259200000);
         cookieRememberMeManager.setCookie(simpleCookie);
-        cookieRememberMeManager.setCipherKey(Base64.decode("6ZmI6I2j5Y+R5aSn5ZOlAA=="));
+        cookieRememberMeManager.setCipherKey(Base64.decode("5p2D6ZmQ566h55CG57O757uf"));
         return cookieRememberMeManager;
     }
 }

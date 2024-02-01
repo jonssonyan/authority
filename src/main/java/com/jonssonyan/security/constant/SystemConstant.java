@@ -16,7 +16,7 @@ public class SystemConstant {
     public static final long EXPIRATION_REMEMBER = 60 * 60 * 24 * 7L;
 
     /**
-     * JWT签名密钥硬编码到应用程序代码中，应该存放在环境变量或.properties文件中。
+     * JWT 签名密钥（应该存放在环境变量或.properties文件中）
      */
     public static final String JWT_SECRET_KEY = "C*F-JaNdRgUkXn2r5u8x/A?D(G+KbPeShVmYq3s6v9y$B&E)H@McQfTjWnZr4u7w";
 

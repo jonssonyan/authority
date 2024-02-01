@@ -33,7 +33,7 @@ public class JwtUtil {
     public static String createToken(String subject, boolean isRememberMe) {
         long expiration = isRememberMe ? SystemConstant.EXPIRATION_REMEMBER : SystemConstant.EXPIRATION;
 
-        String tokenPrefix = Jwts.builder()
+        return Jwts.builder()
                 .setHeaderParam("typ", SystemConstant.TOKEN_TYPE)
                 .signWith(secretKey, SignatureAlgorithm.HS256) // 设置加密方式
                 .setIssuer("Authority") // //签发的人
@@ -41,7 +41,6 @@ public class JwtUtil {
                 .setSubject(subject) // 主体
                 .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000)) // 有效时间
                 .compact();
-        return tokenPrefix;
     }
 
     public static boolean isTokenExpired(String token) {

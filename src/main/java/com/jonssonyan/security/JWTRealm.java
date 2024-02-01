@@ -13,10 +13,6 @@ import com.jonssonyan.service.PermissionService;
 import com.jonssonyan.service.RolePermissionService;
 import com.jonssonyan.service.RoleService;
 import com.jonssonyan.service.UserService;
-import com.jonssonyan.service.impl.PermissionServiceImpl;
-import com.jonssonyan.service.impl.RolePermissionServiceImpl;
-import com.jonssonyan.service.impl.RoleServiceImpl;
-import com.jonssonyan.service.impl.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -78,7 +74,7 @@ public class JWTRealm extends AuthorizingRealm {
         // 解密获得username，用于和数据库进行对比
         String username = JwtUtil.getUsernameByToken(token);
         if (StrUtil.isBlank(username)) {
-            throw new AuthenticationException("token认证失败!");
+            throw new AuthenticationException("Token认证失败!");
         }
         User user = userService.selectByUsername(username);
         // 判断用户
