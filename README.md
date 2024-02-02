@@ -25,7 +25,7 @@
 
    本项目数据库中有两个默认账号，将项目部署成功后可以直接使用以下账户登录
     - 用户名: admin 密码: 123456 (管理员角色)
-    - 用户名: user1  密码: 123456 (普通用户角色)
+    - 用户名: user1 密码: 123456 (普通用户角色)
 
 2. API文档地址: `localhost:8888/authority/swagger-ui.html`
 
@@ -34,6 +34,10 @@
 ## 其他
 
 你可以在哔哩哔哩上关注我: https://space.bilibili.com/374864141
+
+如果这个项目对你有帮助，你可以请我喝杯咖啡:
+
+<img src="https://github.com/jonssonyan/install-script/assets/46235235/cce90c48-27d3-492c-af3e-468b656bdd06" width="150" alt="微信赞赏码" title="微信赞赏码"/>
 
 如果这个项目对你有帮助，你可以请我喝杯咖啡:
 
